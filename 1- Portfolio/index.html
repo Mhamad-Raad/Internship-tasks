@@ -149,14 +149,56 @@
             >
           </div>
         </div>
-        </div>
       </div>
     </section>
 
     <section id="contact">
-      <h2>Contact Me</h2>
-      <p>Email: your@email.com</p>
-      <p>Phone: (123) 456-7890</p>
+      <form
+        class="contact-card"
+        action="https://formspree.io/f/xoqbvvly"
+        method="POST"
+        id="form"
+      >
+        <h2>Cotact me</h2>
+        <div class="col contact-card-input">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-input"
+            placeholder="Johnny Depp"
+            required
+          />
+        </div>
+        <div class="col contact-card-input">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-input"
+            placeholder="Johnny Depp@gmail.com"
+            required
+          />
+        </div>
+        <div class="col contact-card-input">
+          <label for="message" class="form-label">Message</label>
+          <textarea
+            name="message"
+            id="message"
+            cols="30"
+            rows="10"
+            class="form-input"
+            placeholder="Hello there, I would like to hire you for a project"
+            required
+          >
+hi there, wanna collab?!</textarea
+          >
+        </div>
+        <button type="submit" class="contact-me-button">Get In Touch</button>
+        <small class="error-msg"></small>
+      </form>
     </section>
 
     <footer>

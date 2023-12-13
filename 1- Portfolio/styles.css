@@ -7,6 +7,16 @@ body {
   background-color: var(--main) !important;
 }
 
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 header {
   background-color: var(--background);
   padding: 1em;
@@ -82,6 +92,7 @@ footer {
 .portfolio-title {
   font-size: 24px;
   margin-bottom: 32px;
+  font-weight: bolder;
   color: var(--secondary);
 }
 
@@ -106,4 +117,53 @@ footer {
 
 .card-text {
   color: var(--text) !important;
+}
+
+#contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.contact-card {
+  background-color: var(--secondary);
+  color: var(--main);
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5em;
+  padding-inline: 5rem;
+  width: 80%;
+}
+
+.contact-card-input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+.contact-me-button {
+  width: 50%;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: var(--background);
+  color: var(--text);
+  font-weight: bolder;
+  cursor: pointer;
 }
