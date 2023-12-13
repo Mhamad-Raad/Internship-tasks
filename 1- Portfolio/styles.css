@@ -96,6 +96,10 @@ footer {
   background-color: var(--secondary) !important;
 }
 
+.card-img-top {
+  filter: grayscale(100%) !important;
+}
+
 .card-title {
   color: var(--main) !important;
 }
