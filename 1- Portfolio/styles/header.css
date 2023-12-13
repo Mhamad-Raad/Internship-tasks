@@ -33,12 +33,28 @@ nav ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 50px;
   margin-right: 20px;
   margin-bottom: 0;
+}
+
+@keyframes rotateme {
+  from {
+    font-size: 28px;
+  }
+  to {
+    font-size: 16px;
+  }
 }
 
 nav a {
   text-decoration: none;
   color: var(--text);
+  font-weight: bold;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+    0 0 42px rgb(173, 173, 173), 0 0 82px var(--main), 0 0 92px var(--text),
+    0 0 102px var(--text), 0 0 151px var(--text);
+  animation-name: rotateme; /* Corrected animation name */
+  animation-duration: 0.75s;
+  animation-delay: 0.5s;
 }
