@@ -1,0 +1,59 @@
+#about {
+  background-color: var(--secondary);
+  color: var(--text);
+  padding: 1em;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  padding-bottom: 20px;
+  padding-top: 100px;
+}
+
+.aboutme-title {
+  font-size: 24px;
+  margin-bottom: 32px;
+  color: var(--main);
+}
+
+.aboutme-text {
+  font-size: 16px;
+  width: 80%;
+  line-height: 2;
+}
+
+.contact-me-title > * {
+  font-family: 'Poppins', Arial, Verdana, Tahoma, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--main);
+}
+
+.contact-me-icons {
+  margin-top: 10px;
+  gap: 10px;
+  display: flex;
+  padding-left: 10px;
+}
+
+.icon {
+  color: var(--main) !important;
+}
+
+.connections-bg {
+  margin-top: 50px;
+  padding: 0;
+  padding-left: 20px;
+  animation-name: top-slide;
+  animation-duration: 1.2s;
+}
+
+@keyframes top-slide {
+  from {
+    margin-top: 500px;
+  }
+
+  to {
+    margin-top: 50px;
+  }
+}
