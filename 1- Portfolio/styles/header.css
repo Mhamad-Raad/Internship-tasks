@@ -58,3 +58,24 @@ nav a {
   animation-duration: 0.75s;
   animation-delay: 0.5s;
 }
+
+@media only screen and (max-width: 768px) {
+  header {
+    display: block;
+    padding-inline: 1.5em;
+  }
+  header > h1 {
+    display: none;
+    width: 0;
+  }
+
+  nav ul {
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+  }
+
+  nav a {
+    font-size: 14px;
+  }
+}
