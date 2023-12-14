@@ -36,3 +36,23 @@
 .card-text {
   color: var(--text) !important;
 }
+
+@keyframes top-slide {
+  from {
+    margin-top: 500px;
+  }
+
+  to {
+    margin-top: 50px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #portfolio {
+    margin-top: 75px;
+  }
+
+  .portfolio-title {
+    font-size: 20px;
+  }
+}
