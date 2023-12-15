@@ -168,3 +168,31 @@ const person = {
 for (const key in person) {
   console.log(person[key]);
 }
+
+// -----------------------------------------------------------
+// 9- write a program to define a variable with three team members (name, address, phone, age)
+
+const team = [
+  {
+    name: 'Ahmed',
+    address: 'Baghdad',
+    phone: '000',
+    age: 18,
+  },
+  {
+    name: 'Ali',
+    address: 'Baghdad',
+    phone: '000',
+    age: 18,
+  },
+  {
+    name: 'Omar',
+    address: 'Baghdad',
+    phone: '000',
+    age: 18,
+  },
+];
+
+for (let i = 0; i < team.length; i++) {
+  console.log(team[i]);
+}
