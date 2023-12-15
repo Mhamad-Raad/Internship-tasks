@@ -156,3 +156,15 @@ for (let i = 0; i < colors.length; i++) {
 }
 
 // -----------------------------------------------------------
+// 8 - write a program to define variables with these data (name: Ahmed, address: Baghdad, phone: 000, age: 18) and print all values
+
+const person = {
+  name: 'Ahmed',
+  address: 'Baghdad',
+  phone: '000',
+  age: 18,
+};
+
+for (const key in person) {
+  console.log(person[key]);
+}
