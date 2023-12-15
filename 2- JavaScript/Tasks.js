@@ -67,3 +67,144 @@ const Movies = [
     ],
   },
 ];
+
+// -----------------------------------------------------------
+// 2- write program defines two numbers and find positive/negative, even/odd, max/min
+const num1 = 5;
+const num2 = 10;
+
+if (num1 <= 0) {
+  console.log('First number is negative or equal to zero');
+} else {
+  console.log('First number is positive');
+}
+
+if (num2 <= 0) {
+  console.log('Second number is negative');
+} else {
+  console.log('Second number is positive');
+}
+
+if (num1 > 0 && num2 > 0) {
+  console.log(' both positive');
+} else if (num1 < 0 && num2 < 0) {
+  console.log('both negative');
+}
+
+if (num1 % 2 === 0) {
+  console.log('First number is even');
+} else {
+  console.log('First number is odd');
+}
+if (num2 % 2 === 0) {
+  console.log('Second number is even');
+} else {
+  console.log('Second number is odd');
+}
+
+// find min and max between the two numbers
+if (num1 > num2 && num1 !== num2) {
+  console.log('First number is greater than second number');
+} else {
+  console.log('Second number is greater than first number or they are equal');
+}
+
+// -----------------------------------------------------------
+// 3- write a program to count from 15 to -2
+let i = 15;
+while (i >= -2) {
+  console.log(i);
+  i--;
+}
+
+// -----------------------------------------------------------
+// 4- write program find the sum of even numbers between 1 to 200
+let sum = 0;
+for (let i = 1; i <= 200; i++) {
+  if (i % 2 === 0) {
+    sum += i;
+  }
+}
+
+console.log(sum);
+
+// -----------------------------------------------------------
+// 5- write program to sort array  in descending order (array elements is 3, 1, 7, -9, 0, 38)
+
+const arr = [3, 1, 7, -9, 0, 38];
+arr.sort((a, b) => b - a);
+
+console.log(arr);
+
+// -----------------------------------------------------------
+// 6- write a program to define and print these types of variables: number, string, and boolean
+const num = 5;
+const str = 'Hello';
+const bool = true;
+
+console.log(num);
+console.log(str);
+console.log(bool);
+
+// -----------------------------------------------------------
+// 7- write a program to define variables with those values (red, blue, white, black) and print all variable values
+
+const colors = ['red', 'blue', 'white', 'black'];
+
+for (let i = 0; i < colors.length; i++) {
+  console.log(colors[i]);
+}
+
+// or
+
+const color1 = 'red';
+const color2 = 'blue';
+const color3 = 'white';
+const color4 = 'black';
+
+console.log(color1);
+console.log(color2);
+console.log(color3);
+console.log(color4);
+
+// -----------------------------------------------------------
+// 8 - write a program to define variables with these data (name: Ahmed, address: Baghdad, phone: 000, age: 18) and print all values
+
+const person = {
+  name: 'Ahmed',
+  address: 'Baghdad',
+  phone: '000',
+  age: 18,
+};
+
+for (const key in person) {
+  console.log(person[key]);
+}
+
+// -----------------------------------------------------------
+// 9- write a program to define a variable with three team members (name, address, phone, age)
+
+const team = [
+  {
+    name: 'Ahmed',
+    address: 'Baghdad',
+    phone: '000',
+    age: 18,
+  },
+  {
+    name: 'Ali',
+    address: 'Baghdad',
+    phone: '000',
+    age: 18,
+  },
+  {
+    name: 'Omar',
+    address: 'Baghdad',
+    phone: '000',
+    age: 18,
+  },
+];
+
+for (let i = 0; i < team.length; i++) {
+  console.log(team[i]);
+}
