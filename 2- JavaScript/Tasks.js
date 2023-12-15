@@ -117,3 +117,32 @@ while (i >= -2) {
   i--;
 }
 
+// -----------------------------------------------------------
+// 4- write program find the sum of even numbers between 1 to 200 
+let sum = 0;
+for (let i = 1; i <= 200; i++) {
+  if (i % 2 === 0) {
+    sum += i;
+  }
+}
+
+console.log(sum);
+
+// -----------------------------------------------------------
+// 5- write program to sort array  in descending order (array elements is 3, 1, 7, -9, 0, 38)
+
+const arr = [3, 1, 7, -9, 0, 38];
+arr.sort((a, b) => b - a);
+
+console.log(arr);
+
+
+// -----------------------------------------------------------
+// 6- write a program to define and print these types of variables: number, string, and boolean 
+const num = 5;
+const str = 'Hello';
+const bool = true;
+
+console.log(num);
+console.log(str);
+console.log(bool);
