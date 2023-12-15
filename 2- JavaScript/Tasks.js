@@ -110,7 +110,7 @@ if (num1 > num2 && num1 !== num2) {
 }
 
 // -----------------------------------------------------------
-// 3- write a program to count from 15 to -2 
+// 3- write a program to count from 15 to -2
 let i = 15;
 while (i >= -2) {
   console.log(i);
@@ -118,7 +118,7 @@ while (i >= -2) {
 }
 
 // -----------------------------------------------------------
-// 4- write program find the sum of even numbers between 1 to 200 
+// 4- write program find the sum of even numbers between 1 to 200
 let sum = 0;
 for (let i = 1; i <= 200; i++) {
   if (i % 2 === 0) {
@@ -136,9 +136,8 @@ arr.sort((a, b) => b - a);
 
 console.log(arr);
 
-
 // -----------------------------------------------------------
-// 6- write a program to define and print these types of variables: number, string, and boolean 
+// 6- write a program to define and print these types of variables: number, string, and boolean
 const num = 5;
 const str = 'Hello';
 const bool = true;
@@ -146,3 +145,14 @@ const bool = true;
 console.log(num);
 console.log(str);
 console.log(bool);
+
+// -----------------------------------------------------------
+// 7- write a program to define variables with those values (red, blue, white, black) and print all variable values
+
+const colors = ['red', 'blue', 'white', 'black'];
+
+for (let i = 0; i < colors.length; i++) {
+  console.log(colors[i]);
+}
+
+// -----------------------------------------------------------
