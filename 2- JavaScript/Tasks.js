@@ -67,3 +67,53 @@ const Movies = [
     ],
   },
 ];
+
+// -----------------------------------------------------------
+// 2- write program defines two numbers and find positive/negative, even/odd, max/min
+const num1 = 5;
+const num2 = 10;
+
+if (num1 <= 0) {
+  console.log('First number is negative or equal to zero');
+} else {
+  console.log('First number is positive');
+}
+
+if (num2 <= 0) {
+  console.log('Second number is negative');
+} else {
+  console.log('Second number is positive');
+}
+
+if (num1 > 0 && num2 > 0) {
+  console.log(' both positive');
+} else if (num1 < 0 && num2 < 0) {
+  console.log('both negative');
+}
+
+if (num1 % 2 === 0) {
+  console.log('First number is even');
+} else {
+  console.log('First number is odd');
+}
+if (num2 % 2 === 0) {
+  console.log('Second number is even');
+} else {
+  console.log('Second number is odd');
+}
+
+// find min and max between the two numbers
+if (num1 > num2 && num1 !== num2) {
+  console.log('First number is greater than second number');
+} else {
+  console.log('Second number is greater than first number or they are equal');
+}
+
+// -----------------------------------------------------------
+// 3- write a program to count from 15 to -2 
+let i = 15;
+while (i >= -2) {
+  console.log(i);
+  i--;
+}
+
