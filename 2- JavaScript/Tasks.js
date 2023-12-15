@@ -155,6 +155,18 @@ for (let i = 0; i < colors.length; i++) {
   console.log(colors[i]);
 }
 
+// or
+
+const color1 = 'red';
+const color2 = 'blue';
+const color3 = 'white';
+const color4 = 'black';
+
+console.log(color1);
+console.log(color2);
+console.log(color3);
+console.log(color4);
+
 // -----------------------------------------------------------
 // 8 - write a program to define variables with these data (name: Ahmed, address: Baghdad, phone: 000, age: 18) and print all values
 
