@@ -63,3 +63,27 @@ console.log(testRegex(whiteSpaceRegex, sampleWhiteSpace));
 console.log(testRegex(priceRegex, samplePrice));
 console.log(testRegex(weightRegex, sampleWeight));
 console.log(testRegex(dimensionRegex, sampleDimension));
+
+console.log(
+  '\n\n-------------------------------------------------------------------------'
+);
+
+// test the regexes for falses
+
+console.log(testRegex(digitRegex, sampleLetter));
+console.log(testRegex(letterRegex, sampleDigit));
+console.log(testRegex(capitalLetterRegex, sampleSmallLetter));
+console.log(testRegex(smallLetterRegex, sampleCapitalLetter));
+console.log(testRegex(dollarSignRegex, sampleLetter));
+console.log(testRegex(specialCharacterRegex, sampleLetter));
+console.log(testRegex(wordRegex, sampleWhiteSpace));
+console.log(testRegex(emailRegex, sampleWord));
+console.log(testRegex(urlRegex, sampleWord));
+console.log(testRegex(phoneNumberRegex, sampleWord));
+console.log(testRegex(dateRegex, sampleWord));
+console.log(testRegex(ipAddressRegex, sampleWord));
+console.log(testRegex(htmlTagRegex, sampleWord));
+console.log(testRegex(whiteSpaceRegex, sampleWord));
+console.log(testRegex(priceRegex, sampleWord));
+console.log(testRegex(weightRegex, sampleWord));
+console.log(testRegex(dimensionRegex, sampleWord));
