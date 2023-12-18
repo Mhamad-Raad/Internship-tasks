@@ -46,6 +46,8 @@ function testRegex(regex, input) {
 
 // test the regexes for trues
 
+console.log('\n\n --------------- TRUES ---------------\n\n');
+
 console.log(testRegex(digitRegex, sampleDigit));
 console.log(testRegex(letterRegex, sampleLetter));
 console.log(testRegex(capitalLetterRegex, sampleCapitalLetter));
@@ -69,6 +71,8 @@ console.log(
 );
 
 // test the regexes for falses
+
+console.log('\n\n --------------- FALSES ---------------\n\n');
 
 console.log(testRegex(digitRegex, sampleLetter));
 console.log(testRegex(letterRegex, sampleDigit));
