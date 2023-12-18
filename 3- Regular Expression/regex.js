@@ -44,3 +44,22 @@ function testRegex(regex, input) {
   return regex.test(input);
 }
 
+// test the regexes for trues
+
+console.log(testRegex(digitRegex, sampleDigit));
+console.log(testRegex(letterRegex, sampleLetter));
+console.log(testRegex(capitalLetterRegex, sampleCapitalLetter));
+console.log(testRegex(smallLetterRegex, sampleSmallLetter));
+console.log(testRegex(dollarSignRegex, sampleDollarSign));
+console.log(testRegex(specialCharacterRegex, sampleSpecialCharacter));
+console.log(testRegex(wordRegex, sampleWord));
+console.log(testRegex(emailRegex, sampleEmail));
+console.log(testRegex(urlRegex, sampleURL));
+console.log(testRegex(phoneNumberRegex, samplePhoneNumber));
+console.log(testRegex(dateRegex, sampleDate));
+console.log(testRegex(ipAddressRegex, sampleIPAddress));
+console.log(testRegex(htmlTagRegex, sampleHTMLTag));
+console.log(testRegex(whiteSpaceRegex, sampleWhiteSpace));
+console.log(testRegex(priceRegex, samplePrice));
+console.log(testRegex(weightRegex, sampleWeight));
+console.log(testRegex(dimensionRegex, sampleDimension));
