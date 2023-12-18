@@ -38,3 +38,9 @@ const priceRegex = /^\$\d+(\.\d{1,2})?$/;
 const weightRegex = /\d+(\.\d+)?\s*(kg|g|lbs)/;
 const dimensionRegex = /\d+(\.\d+)?\s*(cm|mm|inches)/;
 
+// function to test the regexes
+
+function testRegex(regex, input) {
+  return regex.test(input);
+}
+
