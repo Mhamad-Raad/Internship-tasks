@@ -55,19 +55,21 @@
 
   <script>
     function add() {
-      const name = document.querySelector('#name').value;
-      const content = document.querySelector('#content').value;
+      const Author = document.querySelector('#Author').value;
+      const Quote = document.querySelector('#Quote').value;
 
-      console.log(name);
-      console.log(content);
+      if (Author == '' || Quote == '') {
+        alert('Please fill all the fields');
+        return;
+      }
 
       document.querySelector('#posts').innerHTML += `
             <div class="card text-center" style="margin: 25px;">
             <div class="card-header">
-                ${name}
+                ${Author}
             </div>
             <div class="card-body">
-                <p class="card-text">${content}</p>
+                <p class="card-text">${Quote}</p>
             </div>
             <div class="card-footer text-muted">
                 2 days ago
@@ -76,8 +78,8 @@
             
             `;
 
-      document.querySelector('#name').value = '';
-      document.querySelector('#content').value = '';
+      document.querySelector('#Author').value = '';
+      document.querySelector('#Quote').value = '';
     }
   </script>
 </html>
