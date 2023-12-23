@@ -10,6 +10,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-inline: 20px;
 }
 
 .form-section {
@@ -93,4 +94,16 @@ form button:hover {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  #quotes-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  #quotes-section {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
