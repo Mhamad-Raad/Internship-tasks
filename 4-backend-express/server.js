@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/task4', (req, res) => {
+  app.use(express.static('public'));
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
