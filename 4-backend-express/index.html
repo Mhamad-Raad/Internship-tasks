@@ -28,6 +28,7 @@
     <title>Task 4</title>
   </head>
   <body>
+    <section class="alerts-section"></section>
     <section class="form-section">
       <div class="container">
         <h1 class="title">Quotes</h1>
@@ -67,18 +68,18 @@
 
       if (Author == '' || Quote == '') {
         document.querySelector(
-          'body'
+          '.alerts-section'
         ).innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Please fill all the inputs shown
+        <strong>Please fill all the inputs shown</strong>
         <button
           type="button"
-          class="close"
+          class="close btn btn-warning"
           data-dismiss="alert"
           aria-label="Close"
         >
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>`;
+      </div>` ;
         return;
       }
 
