@@ -25,6 +25,17 @@ textarea {
   padding: 16px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.alert h4 {
+  margin: 0;
+}
+
+/* make alert h4 responsive */
+
+@media (max-width: 576px) {
+
 }
 
 .form-control:focus {
@@ -118,6 +129,18 @@ form button:hover {
 @media (max-width: 768px) {
   #quotes-section {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .alerts-section {
+    width: 90%
+  }
+
+  .alert {
+    padding: 10px;
+  }
+
+  .alert h4 {
+    font-size: 16px;
   }
 }
 
