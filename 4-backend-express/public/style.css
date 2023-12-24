@@ -13,6 +13,10 @@ body {
   padding-inline: 20px;
 }
 
+textarea {
+  resize: none;
+}
+
 .alerts-section {
   width: 75%;
 }
