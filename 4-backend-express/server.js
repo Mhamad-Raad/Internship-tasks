@@ -10,9 +10,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+//for the css
 app.use(express.static(path.join(__dirname, 'client')));
 
-//add a middle ware for /task4 route
 app.get('/task4', task4Route) 
 
 app.listen(port, () => {

@@ -1,5 +1,6 @@
 const express = require('express');
-const path = require('path');
+
+const { sendTaskFour } = require('./task4.controller')
 
 const router = express.Router();
 
@@ -10,8 +11,6 @@ router.use('/task4', function timeLog(req, res, next) {
 });
 
 // Route to serve the HTML file
-router.get('/task4', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
-});
+router.get('/task4', sendTaskFour);
 
 module.exports = router;
