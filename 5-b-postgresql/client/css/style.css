@@ -35,7 +35,6 @@ textarea {
 /* make alert h4 responsive */
 
 @media (max-width: 576px) {
-
 }
 
 .form-control:focus {
@@ -97,6 +96,7 @@ form button:hover {
   background-color: #252525;
   width: 300px;
   height: 200px;
+  position: relative;
 }
 
 .card .card-body blockquote {
@@ -107,6 +107,14 @@ form button:hover {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  padding: 7px;
+  cursor: pointer;
 }
 
 .quote-desc {
@@ -132,7 +140,7 @@ form button:hover {
   }
 
   .alerts-section {
-    width: 90%
+    width: 90%;
   }
 
   .alert {
