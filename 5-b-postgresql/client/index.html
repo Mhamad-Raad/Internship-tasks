@@ -62,6 +62,17 @@
   </body>
 
   <script>
+    async function deleteQuote(id) {
+      console.log(id);
+      const response = await fetch('http://localhost:3000/quotes', {
+        method: 'DELETE',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          quote: id,
+        }),
+      });
+    }
+
     async function add() {
       const Author = document.querySelector('#Author').value;
       const Quote = document.querySelector('#Quote').value;
@@ -88,6 +99,7 @@
       <button
           type="button"
           class="close btn btn-warning delete-btn"
+          onclick="deleteQuote('${Quote}')"
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -125,6 +137,7 @@
       <button
           type="button"
           class="close btn btn-warning delete-btn"
+          onclick="deleteQuote('${quote.quote}')"
         >
           <span aria-hidden="true">&times;</span>
         </button>

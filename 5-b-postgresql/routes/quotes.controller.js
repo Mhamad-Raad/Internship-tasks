@@ -37,4 +37,19 @@ const addQuote = async (req, res) => {
   }
 };
 
-module.exports = { getAllQuotes, addQuote };
+const deleteQuote = async (req, res) => {
+  console.log(req.body);
+
+  const { quote } = req.body;
+
+  try {
+    await pool.query('DELETE FROM quotes WHERE quote = $1', [quote]);
+
+    res.send('Done');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+module.exports = { getAllQuotes, addQuote, deleteQuote };
