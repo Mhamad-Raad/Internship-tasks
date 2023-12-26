@@ -21,5 +21,41 @@ app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
+app.use(express.json());
+
+app.get('/quotes', (req, res) => {
+  db.all('SELECT * FROM quotes', {}, (error, rows) => {
+    console.log(rows);
+    res.send(rows);
+  });
+});
+
+app.post('/quotes', (req, res) => {
+  console.log(req.body);
+
+  db.run(
+    `
+        INSERT INTO quotes 
+        (
+            author,
+            quote
+        )
+        VALUES
+        (
+            "${req.body.author}",
+            "${req.body.quote}"
+        )
+        `,
+    (error) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.send('Done');
+      }
+    }
+  );
+});
+
 // Mhamad Raad
 // 0770 184 4913
