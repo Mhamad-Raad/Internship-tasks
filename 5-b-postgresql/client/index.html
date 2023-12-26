@@ -62,7 +62,7 @@
   </body>
 
   <script>
-    async function deleteQuote(id) {
+    async function deleteQuote(id, element) {
       console.log(id);
       const response = await fetch('http://localhost:3000/quotes', {
         method: 'DELETE',
@@ -71,6 +71,9 @@
           quote: id,
         }),
       });
+
+      const quoteCard = element.closest('.card');
+      quoteCard.remove();
     }
 
     async function add() {
@@ -99,7 +102,7 @@
       <button
           type="button"
           class="close btn btn-warning delete-btn"
-          onclick="deleteQuote('${Quote}')"
+          onclick="deleteQuote('${Quote}', this)"
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -137,7 +140,7 @@
       <button
           type="button"
           class="close btn btn-warning delete-btn"
-          onclick="deleteQuote('${quote.quote}')"
+          onclick="deleteQuote('${quote.quote}', this)"
         >
           <span aria-hidden="true">&times;</span>
         </button>
