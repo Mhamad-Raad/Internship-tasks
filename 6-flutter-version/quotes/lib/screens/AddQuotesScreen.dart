@@ -61,6 +61,19 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
               onPressed: addToQuote,
               child: const Text('Add'),
             ),
+            Container(
+              width: screenWidth,
+              height: screenHeight * 0.3,
+              color: Colors.grey[300],
+              child: ListView.builder(
+                itemCount: quotes.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('Item $index'),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
