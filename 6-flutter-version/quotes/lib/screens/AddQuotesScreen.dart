@@ -68,8 +68,46 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
               child: ListView.builder(
                 itemCount: quotes.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Item $index'),
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                quotes[index]['author'],
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '-${quotes[index]['quote']}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            quotes.removeAt(index);
+                          });
+                        },
+                        icon: const Icon(Icons.delete),
+                      ),
+                    ],
                   );
                 },
               ),
