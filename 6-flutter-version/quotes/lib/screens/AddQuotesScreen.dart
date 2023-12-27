@@ -10,6 +10,25 @@ class AddQuotesScreen extends StatefulWidget {
 }
 
 class _AddQuotesScreenState extends State<AddQuotesScreen> {
+  final authorController = TextEditingController();
+  final quoteController = TextEditingController();
+
+  var quotes = [];
+
+  addToQuote() {
+    setState(() {
+      quotes.add({
+        'author': authorController.text,
+        'quote': quoteController.text,
+      });
+    });
+
+    authorController.clear();
+    quoteController.clear();
+
+    print(quotes);
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -21,26 +40,26 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Author',
               ),
+              controller: authorController,
             ),
             const MinSpace(),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Quote',
               ),
-              maxLines: 3,
+              controller: quoteController,
+              maxLines: 2,
             ),
             const MinSpace(),
             ElevatedButton(
+              onPressed: addToQuote,
               child: const Text('Add'),
-              onPressed: () {
-                print('Hello');
-              },
             ),
           ],
         ),
