@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quotes/screens/DetailedQuote.dart';
 
 import '../Widgets/MinSpace.dart';
 
@@ -97,7 +98,7 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
 
     return SingleChildScrollView(
       child: Container(
-        margin: const EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
@@ -132,31 +133,41 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
                   return Row(
                     children: [
                       Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                quotes[index]['author'],
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailedQuote(
+                                          quote: quotes[index],
+                                        )));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  quotes[index]['author'],
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '-${quotes[index]['quote']}',
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
+                                Text(
+                                  '-${quotes[index]['quote']}',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
