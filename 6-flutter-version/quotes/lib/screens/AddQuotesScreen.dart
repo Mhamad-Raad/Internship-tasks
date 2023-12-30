@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,6 +30,35 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
     quoteController.clear();
 
     print(quotes);
+  }
+
+  fetchQuotes() async {
+    final response =
+        await http.get(Uri.parse('http://192.168.1.41:3000/quotes'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print(response.body);
+      return (jsonDecode(response.body) as List<dynamic>);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchQuotes().then((result) {
+      setState(() {
+        quotes = result;
+      });
+    }).catchError((error) {
+      print('Error fetching quotes: $error');
+      // Handle the error as needed
+    });
   }
 
   @override
