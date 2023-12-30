@@ -18,13 +18,30 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
 
   var quotes = [];
 
-  addToQuote() {
-    setState(() {
-      quotes.add({
+  addToQuote() async {
+    final response = await http.post(
+      Uri.parse(
+        'http://192.168.1.41:3000/quotes',
+      ),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<dynamic, dynamic>{
         'author': authorController.text,
         'quote': quoteController.text,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        quotes.add({
+          'author': authorController.text,
+          'quote': quoteController.text,
+        });
       });
-    });
+    } else {
+      throw Exception('Failed to load quote');
+    }
 
     authorController.clear();
     quoteController.clear();
@@ -37,13 +54,9 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
         await http.get(Uri.parse('http://192.168.1.41:3000/quotes'));
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       print(response.body);
       return (jsonDecode(response.body) as List<dynamic>);
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       throw Exception('Failed to load album');
     }
   }
@@ -57,8 +70,24 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
       });
     }).catchError((error) {
       print('Error fetching quotes: $error');
-      // Handle the error as needed
     });
+  }
+
+  deleteAQuote(quote) async {
+    final response =
+        await http.delete(Uri.parse('http://192.168.1.41:3000/quotes'),
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode({'quote': quote}));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        quotes.removeWhere((element) => element['quote'] == quote);
+      });
+    } else {
+      throw Exception('Failed to delete quote');
+    }
   }
 
   @override
@@ -132,11 +161,7 @@ class _AddQuotesScreenState extends State<AddQuotesScreen> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          setState(() {
-                            quotes.removeAt(index);
-                          });
-                        },
+                        onPressed: () => {deleteAQuote(quotes[index]['quote'])},
                         icon: const Icon(Icons.delete),
                       ),
                     ],
