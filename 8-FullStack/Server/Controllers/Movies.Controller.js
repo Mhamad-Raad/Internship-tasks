@@ -1,57 +1,110 @@
 // moviesController.js
 
-const Movies = require('../Modules/Movies'); // Adjust the path based on your project structure
+const MoviesService = require('../Services/MoviesService');
+
+const moviesService = new MoviesService();
 
 class MoviesController {
-  constructor() {
-    this.movies = new Movies();
-  }
+  constructor() {}
 
-  getAllMovies(req, res) {
-    const allMovies = this.movies.getAllMovies();
-    res.json(allMovies);
-  }
+  async addMovie(req, res) {
+    const newMovie = req.body;
 
-  getMovieById(req, res) {
-    const movieId = parseInt(req.params.id);
-    const movie = this.movies.getMovieById(movieId);
-
-    if (movie) {
-      res.json(movie);
-    } else {
-      res.status(404).send('Movie not found');
+    try {
+      const insertedMovie = await moviesService.addMovie(newMovie);
+      res.status(201).json(insertedMovie);
+    } catch (error) {
+      console.error('Error adding movie:', error);
+      res.status(500).send('Internal Server Error');
     }
   }
 
-  addMovie(req, res) {
-    const newMovie = req.body; // Assuming request body contains movie details
-    this.movies.addMovie(newMovie);
-    res.status(201).json(newMovie);
+  async getAllMovies(req, res) {
+    try {
+      const allMovies = await moviesService.getAllMovies();
+      res.json(allMovies);
+    } catch (error) {
+      console.error('Error getting all movies:', error);
+      res.status(500).send('Internal Server Error');
+    }
   }
 
-  getMovieLikes(req, res) {
+  async getMovieById(req, res) {
     const movieId = parseInt(req.params.id);
-    const likes = this.movies.getMovieLikes(movieId);
-    res.json({ likes });
+
+    try {
+      const movie = await moviesService.getMovieById(movieId);
+      if (movie) {
+        res.json(movie);
+      } else {
+        res.status(404).send('Movie not found');
+      }
+    } catch (error) {
+      console.error('Error getting movie by ID:', error);
+      res.status(500).send('Internal Server Error');
+    }
   }
 
-  addLikeToMovie(req, res) {
+  async getMovieLikes(req, res) {
     const movieId = parseInt(req.params.id);
-    const likes = this.movies.addLikeToMovie(movieId);
-    res.json({ likes });
+
+    try {
+      const likes = await moviesService.getMovieLikes(movieId);
+      res.json({ likes });
+    } catch (error) {
+      console.error('Error getting movie likes:', error);
+      res.status(500).send('Internal Server Error');
+    }
   }
 
-  getMovieComments(req, res) {
+  async addLikeToMovie(req, res) {
     const movieId = parseInt(req.params.id);
-    const comments = this.movies.getMovieComments(movieId);
-    res.json(comments);
+
+    try {
+      const likes = await moviesService.addLikeToMovie(movieId);
+      res.json({ likes });
+    } catch (error) {
+      console.error('Error adding like to movie:', error);
+      res.status(500).send('Internal Server Error');
+    }
   }
 
-  addCommentToMovie(req, res) {
+  async getMovieComments(req, res) {
     const movieId = parseInt(req.params.id);
-    const { user, text } = req.body; // Assuming request body contains user and text
-    const updatedComments = this.movies.addCommentToMovie(movieId, user, text);
-    res.status(201).json(updatedComments);
+
+    try {
+      const comments = await moviesService.getMovieComments(movieId);
+      res.json(comments);
+    } catch (error) {
+      console.error('Error getting movie comments:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  }
+
+  async addCommentToMovie(req, res) {
+    const movieId = parseInt(req.params.id);
+    const { user, text } = req.body;
+
+    try {
+      const updatedComments = await moviesService.addCommentToMovie(movieId, user, text);
+      res.status(201).json(updatedComments);
+    } catch (error) {
+      console.error('Error adding comment to movie:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  }
+
+  // Additional method to get movie cast
+  async getMovieCast(req, res) {
+    const movieId = parseInt(req.params.id);
+
+    try {
+      const cast = await moviesService.getMovieCast(movieId);
+      res.json(cast);
+    } catch (error) {
+      console.error('Error getting movie cast:', error);
+      res.status(500).send('Internal Server Error');
+    }
   }
 }
 

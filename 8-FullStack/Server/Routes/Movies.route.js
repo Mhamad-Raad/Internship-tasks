@@ -1,30 +1,42 @@
-// moviesRoutes.js
+// moviesRouter.js
 
 const express = require('express');
-const MoviesController = require('../Controllers/Movies.Controller'); // Adjust the path based on your project structure
+const MoviesController = require('../Controllers/Movies.Controller');
 
-const router = express.Router();
 const moviesController = new MoviesController();
+const router = express.Router();
 
-// Endpoint to get all movies
-router.get('/', moviesController.getAllMovies);
+router.post('/', async (req, res) => {
+  await moviesController.addMovie(req, res);
+});
 
-// Endpoint to get a specific movie by ID
-router.get('/:id', moviesController.getMovieById);
+router.get('/', async (req, res) => {
+  await moviesController.getAllMovies(req, res);
+});
 
-// Endpoint to add a new movie
-router.post('/', moviesController.addMovie);
+router.get('/:id', async (req, res) => {
+  await moviesController.getMovieById(req, res);
+});
 
-// Endpoint to get likes for a movie
-router.get('/:id/likes', moviesController.getMovieLikes);
+router.get('/:id/likes', async (req, res) => {
+  await moviesController.getMovieLikes(req, res);
+});
 
-// Endpoint to add a like to a movie
-router.post('/:id/likes', moviesController.addLikeToMovie);
+router.post('/:id/likes', async (req, res) => {
+  await moviesController.addLikeToMovie(req, res);
+});
 
-// Endpoint to get comments for a movie
-router.get('/:id/comments', moviesController.getMovieComments);
+router.get('/:id/comments', async (req, res) => {
+  await moviesController.getMovieComments(req, res);
+});
 
-// Endpoint to add a comment to a movie
-router.post('/:id/comments', moviesController.addCommentToMovie);
+router.post('/:id/comments', async (req, res) => {
+  await moviesController.addCommentToMovie(req, res);
+});
+
+// Additional route for getting movie cast
+router.get('/:id/cast', async (req, res) => {
+  await moviesController.getMovieCast(req, res);
+});
 
 module.exports = router;
