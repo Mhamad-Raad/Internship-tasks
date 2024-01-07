@@ -1,7 +1,7 @@
 // moviesRoutes.js
 
 const express = require('express');
-const MoviesController = require('./moviesController'); // Adjust the path based on your project structure
+const MoviesController = require('../Controllers/Movies.Controller'); // Adjust the path based on your project structure
 
 const router = express.Router();
 const moviesController = new MoviesController();

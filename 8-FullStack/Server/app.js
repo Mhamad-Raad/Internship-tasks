@@ -1,7 +1,7 @@
 // app.js
 
 const express = require('express');
-const MoviesRoutes = require('./moviesRoutes'); // Adjust the path based on your project structure
+const MoviesRoutes = require('./Routes/Movies.route'); // Adjust the path based on your project structure
 
 const app = express();
 const port = 3000;

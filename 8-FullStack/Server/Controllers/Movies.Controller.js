@@ -1,6 +1,6 @@
 // moviesController.js
 
-const Movies = require('./Movies'); // Adjust the path based on your project structure
+const Movies = require('../Modules/Movies'); // Adjust the path based on your project structure
 
 class MoviesController {
   constructor() {
