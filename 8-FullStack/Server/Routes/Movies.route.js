@@ -7,6 +7,7 @@ const moviesController = new MoviesController();
 const router = express.Router();
 
 router.post('/', async (req, res) => {
+  console.log('here')
   await moviesController.addMovie(req, res);
 });
 

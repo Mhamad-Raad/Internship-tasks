@@ -13,10 +13,12 @@ class MoviesController {
     try {
       const insertedMovie = await moviesService.addMovie(newMovie);
       res.status(201).json(insertedMovie);
+      console.log('done')
     } catch (error) {
       console.error('Error adding movie:', error);
       res.status(500).send('Internal Server Error');
     }
+    console.log('problema')
   }
 
   async getAllMovies(req, res) {
