@@ -90,7 +90,7 @@
           const name = document.getElementById(`castName${i}`).value;
           const age = document.getElementById(`castAge${i}`).value;
           const country = document.getElementById(`castCountry${i}`).value;
-          castData.push({ name, age, country });
+          castData.push({ name, age, country_of_origin: country });
         }
 
         const response = await fetch('http://localhost:3000/movies', {
@@ -146,14 +146,14 @@
       movies.forEach(movie => {
         const movieCard = document.createElement('div');
         movieCard.classList.add('movie-card');
-
+        console.log(movie)
         movieCard.innerHTML = `
       <h3>${movie.title}</h3>
       <p>${movie.description}</p>
-      <p>Release Year: ${movie.releaseYear}</p>
+      <p>Release Year: ${movie.release_year}</p>
       <p>Genre: ${movie.genre}</p>
       <p>Director: ${movie.director}</p>
-      <p>Cast: ${movie.cast.map(actor => `${actor.name} (${actor.age}, ${actor.country})`).join(', ')}</p>
+      <p>Cast: ${movie.cast.map(actor => `${actor.name} (${actor.age}, ${actor.country_of_origin})`).join(', ')}</p>
       <p>Likes: ${movie.likes}</p>
       <button onclick="likeMovie(${movie.id})">Like</button>
       <h4>Comments</h4>
