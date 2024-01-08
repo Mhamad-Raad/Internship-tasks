@@ -116,12 +116,63 @@
         }
       }
 
+   // Assuming you have a backend API endpoint for fetching movies at http://your-backend-api/movies
+    const backendApiUrl = 'http://localhost:3000/movies';
+
     // Fetch movies from the backend
     async function fetchMovies() {
-      // Your fetch implementation here
+      try {
+        const response = await fetch(backendApiUrl);
+
+        if (!response.ok) {
+          // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
+          console.error(`Failed to fetch movies. Status: ${response.status}`);
+          return;
+        }
+
+        const movies = await response.json();
+        displayMovies(movies);
+      } catch (error) {
+        // Handle fetch errors
+        console.error('Error fetching movies:', error);
+      }
     }
 
-    // Other functions (addMovie, likeMovie, addComment) remain the same
+    // Example of displaying movies (replace this with your own display logic)
+    function displayMovies(movies) {
+      const moviesContainer = document.getElementById('movies-container');
+      moviesContainer.innerHTML = '';
+
+      movies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.classList.add('movie-card');
+
+        movieCard.innerHTML = `
+      <h3>${movie.title}</h3>
+      <p>${movie.description}</p>
+      <p>Release Year: ${movie.releaseYear}</p>
+      <p>Genre: ${movie.genre}</p>
+      <p>Director: ${movie.director}</p>
+      <p>Cast: ${movie.cast.map(actor => `${actor.name} (${actor.age}, ${actor.country})`).join(', ')}</p>
+      <p>Likes: ${movie.likes}</p>
+      <button onclick="likeMovie(${movie.id})">Like</button>
+      <h4>Comments</h4>
+      <ul>
+        ${movie.comments.map(comment => `<li>${comment.user}: ${comment.text}</li>`).join('')}
+      </ul>
+      <input type="text" id="comment-${movie.id}" placeholder="Add a comment">
+      <button onclick="addComment(${movie.id})">Add Comment</button>
+      <button onclick="editMovie(${movie.id})">Edit</button>
+      <button onclick="deleteMovie(${movie.id})">Delete</button>
+    `;
+
+        moviesContainer.appendChild(movieCard);
+      });
+    }
+
+    // Fetch movies when the page loads
+    document.addEventListener('DOMContentLoaded', fetchMovies);
+
   </script>
 </body>
 
