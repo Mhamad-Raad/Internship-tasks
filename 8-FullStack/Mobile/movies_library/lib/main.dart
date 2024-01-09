@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_library/MovieDetailsScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,7 +91,10 @@ class MovieCard extends StatelessWidget {
         ),
         subtitle: Text(movie.description),
         onTap: () {
-          // Navigate to a screen to show movie details (similar to web version)
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MovieDetailsScreen(movie: movie)));
         },
       ),
     );
