@@ -44,8 +44,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}'));
 
       if (response.statusCode == 200) {
-        // Successfully deleted the movie, navigate back or show a success message
-        // For now, let's fetch the updated movie details
         fetchMovieDetails();
       } else {
         print(
@@ -128,8 +126,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
             ElevatedButton(
               onPressed: () {
-                // Navigate to the edit screen
-                // You can use Navigator.push or other navigation methods
               },
               child: Text('Edit'),
             ),

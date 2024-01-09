@@ -13,12 +13,12 @@ class MoviesController {
     try {
       const insertedMovie = await moviesService.addMovie(newMovie);
       res.status(201).json(insertedMovie);
-      console.log('done')
+      console.log('done');
     } catch (error) {
       console.error('Error adding movie:', error);
       res.status(500).send('Internal Server Error');
     }
-    console.log('problema')
+    console.log('problema');
   }
 
   async getAllMovies(req, res) {
@@ -36,7 +36,10 @@ class MoviesController {
     const updatedMovieData = req.body; // Assuming request body contains updated movie details
 
     try {
-      const updatedMovie = await moviesService.updateMovie(movieId, updatedMovieData);
+      const updatedMovie = await moviesService.updateMovie(
+        movieId,
+        updatedMovieData
+      );
 
       if (updatedMovie) {
         res.json(updatedMovie);
@@ -104,8 +107,14 @@ class MoviesController {
     const movieId = parseInt(req.params.id);
     const { user, text } = req.body;
 
+    console.log(text);
+
     try {
-      const updatedComments = await moviesService.addCommentToMovie(movieId, user, text);
+      const updatedComments = await moviesService.addCommentToMovie(
+        movieId,
+        user,
+        text
+      );
       res.status(201).json(updatedComments);
     } catch (error) {
       console.error('Error adding comment to movie:', error);
