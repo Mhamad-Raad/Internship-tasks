@@ -5,7 +5,10 @@ const cors = require('cors');
 const MoviesRoutes = require('./Routes/Movies.route'); // Adjust the path based on your project structure
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://127.0.0.1:5500/8-FullStack/Client/index.html'],
+  origin: [
+    'http://localhost:3000',
+    'http://127.0.0.1:5500/8-FullStack/Client/index.html',
+  ],
 };
 
 const app = express();

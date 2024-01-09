@@ -6,7 +6,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'task8',
-  password: 'omar',
+  password: '1234',
   port: 5432,
 });
 
@@ -39,7 +39,7 @@ class Movies {
 
         const castInsertQuery =
           'INSERT INTO movie_cast (movie_id, actor_id) VALUES ($1, $2)';
-          
+
         for (const actor of newMovie.cast) {
           // Insert actor details
           const actorValues = [actor.name, actor.age, actor.country_of_origin];
@@ -64,10 +64,10 @@ class Movies {
     }
   }
 
-async getAllMovies() {
-  const client = await pool.connect();
-  try {
-    const result = await client.query(`
+  async getAllMovies() {
+    const client = await pool.connect();
+    try {
+      const result = await client.query(`
       SELECT
         movies.*,
         array_agg(jsonb_build_object('name', actors.name, 'age', actors.age, 'country_of_origin', actors.country_of_origin)) as cast
@@ -81,11 +81,11 @@ async getAllMovies() {
         movies.movie_id
     `);
 
-    return result.rows;
-  } finally {
-    client.release();
+      return result.rows;
+    } finally {
+      client.release();
+    }
   }
-}
 
   async updateMovie(movieId, updatedMovieData) {
     const client = await pool.connect();
@@ -94,9 +94,22 @@ async getAllMovies() {
       await client.query('BEGIN');
 
       // Log the SQL query and values
-      const updateMovieQuery = 'UPDATE movies SET title = $2, description = $3, release_year = $4, genre = $5, director = $6 WHERE movie_id = $1 RETURNING *';
-      const values = [movieId, updatedMovieData.title, updatedMovieData.description, updatedMovieData.release_year, updatedMovieData.genre, updatedMovieData.director];
-      console.log('Executing SQL query:', updateMovieQuery, 'with values:', values);
+      const updateMovieQuery =
+        'UPDATE movies SET title = $2, description = $3, release_year = $4, genre = $5, director = $6 WHERE movie_id = $1 RETURNING *';
+      const values = [
+        movieId,
+        updatedMovieData.title,
+        updatedMovieData.description,
+        updatedMovieData.release_year,
+        updatedMovieData.genre,
+        updatedMovieData.director,
+      ];
+      console.log(
+        'Executing SQL query:',
+        updateMovieQuery,
+        'with values:',
+        values
+      );
 
       // Update the movie in the database
       const updatedMovie = await client.query(updateMovieQuery, values);
@@ -124,11 +137,13 @@ async getAllMovies() {
     }
   }
 
-
   async getMovieById(id) {
     const client = await pool.connect();
     try {
-      const result = await client.query('SELECT * FROM movies WHERE movie_id = $1', [id]);
+      const result = await client.query(
+        'SELECT * FROM movies WHERE movie_id = $1',
+        [id]
+      );
       return result.rows[0];
     } finally {
       client.release();
@@ -146,7 +161,8 @@ async getAllMovies() {
       await client.query(deleteCastQuery, [movieId]);
 
       // Delete the movie from the database
-      const deleteMovieQuery = 'DELETE FROM movies WHERE movie_id = $1 RETURNING *';
+      const deleteMovieQuery =
+        'DELETE FROM movies WHERE movie_id = $1 RETURNING *';
       const deletedMovie = await client.query(deleteMovieQuery, [movieId]);
 
       if (deletedMovie.rows.length === 0) {
@@ -172,7 +188,10 @@ async getAllMovies() {
   async getMovieLikes(id) {
     const client = await pool.connect();
     try {
-      const result = await client.query('SELECT likes FROM movies WHERE movie_id = $1', [id]);
+      const result = await client.query(
+        'SELECT likes FROM movies WHERE movie_id = $1',
+        [id]
+      );
       return result.rows[0].likes;
     } finally {
       client.release();
@@ -182,8 +201,14 @@ async getAllMovies() {
   async addLikeToMovie(id) {
     const client = await pool.connect();
     try {
-      await client.query('UPDATE movies SET likes = likes + 1 WHERE movie_id = $1', [id]);
-      const result = await client.query('SELECT likes FROM movies WHERE movie_id = $1', [id]);
+      await client.query(
+        'UPDATE movies SET likes = likes + 1 WHERE movie_id = $1',
+        [id]
+      );
+      const result = await client.query(
+        'SELECT likes FROM movies WHERE movie_id = $1',
+        [id]
+      );
       return result.rows[0].likes;
     } finally {
       client.release();
@@ -193,7 +218,10 @@ async getAllMovies() {
   async getMovieComments(id) {
     const client = await pool.connect();
     try {
-      const result = await client.query('SELECT comments FROM movies WHERE movie_id = $1', [id]);
+      const result = await client.query(
+        'SELECT comments FROM movies WHERE movie_id = $1',
+        [id]
+      );
       return result.rows[0].comments;
     } finally {
       client.release();
@@ -203,11 +231,14 @@ async getAllMovies() {
   async addCommentToMovie(id, user, text) {
     const client = await pool.connect();
     try {
-      await client.query('UPDATE movies SET comments = array_append(comments, $1) WHERE movie_id = $2', [
-        { user, text },
-        id,
-      ]);
-      const result = await client.query('SELECT comments FROM movies WHERE movie_id = $1', [id]);
+      await client.query(
+        'UPDATE movies SET comments = array_append(comments, $1) WHERE movie_id = $2',
+        [{ user, text }, id]
+      );
+      const result = await client.query(
+        'SELECT comments FROM movies WHERE movie_id = $1',
+        [id]
+      );
       return result.rows[0].comments;
     } finally {
       client.release();
