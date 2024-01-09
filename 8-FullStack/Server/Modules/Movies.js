@@ -87,6 +87,37 @@ async getAllMovies() {
   }
 }
 
+  async updateMovie(movieId, updatedMovieData) {
+    const client = await pool.connect();
+
+    try {
+      await client.query('BEGIN');
+
+      // Update the movie in the database
+      const updateMovieQuery = 'UPDATE movies SET title = $2, description = $3, release_year = $4, genre = $5, director = $6 WHERE id = $1 RETURNING *';
+      const values = [movieId, updatedMovieData.title, updatedMovieData.description, updatedMovieData.release_year, updatedMovieData.genre, updatedMovieData.director];
+      const updatedMovie = await client.query(updateMovieQuery, values);
+
+      if (updatedMovie.rows.length === 0) {
+        // Movie not found
+        await client.query('ROLLBACK');
+        return null;
+      }
+
+      // Commit the transaction
+      await client.query('COMMIT');
+
+      return updatedMovie.rows[0]; // Updated movie
+    } catch (error) {
+      // Handle errors
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      // Release the client back to the pool
+      client.release();
+    }
+  }
+
 
   async getMovieById(id) {
     const client = await pool.connect();
@@ -98,7 +129,7 @@ async getAllMovies() {
     }
   }
 
- async deleteMovie(movieId) {
+  async deleteMovie(movieId) {
     const client = await pool.connect();
 
     try {

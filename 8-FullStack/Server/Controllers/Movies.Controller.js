@@ -31,6 +31,23 @@ class MoviesController {
     }
   }
 
+  async updateMovie(req, res) {
+    const movieId = parseInt(req.params.id);
+    const updatedMovieData = req.body; // Assuming request body contains updated movie details
+
+    try {
+      const updatedMovie = await moviesService.updateMovie(movieId, updatedMovieData);
+
+      if (updatedMovie) {
+        res.json(updatedMovie);
+      } else {
+        res.status(404).send('Movie not found');
+      }
+    } catch (error) {
+      res.status(500).send('Internal Server Error');
+    }
+  }
+
   async getMovieById(req, res) {
     const movieId = parseInt(req.params.id);
 

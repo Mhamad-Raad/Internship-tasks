@@ -15,6 +15,10 @@ class MoviesService {
     return movies.getAllMovies();
   }
 
+  async updateMovie(id, updatedMovieData) {
+    return movies.updateMovie(id, updatedMovieData);
+  }
+
   async getMovieById(id) {
     return movies.getMovieById(id);
   }
