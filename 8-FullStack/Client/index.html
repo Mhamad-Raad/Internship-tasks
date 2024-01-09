@@ -155,7 +155,7 @@
       <p>Director: ${movie.director}</p>
       <p>Cast: ${movie.cast.map(actor => `${actor.name} (${actor.age}, ${actor.country_of_origin})`).join(', ')}</p>
       <p>Likes: ${movie.likes}</p>
-      <button onclick="likeMovie(${movie.id})">Like</button>
+      <button onclick="likeMovie(${movie.movie_id})">Like</button>
       <h4>Comments</h4>
       <ul>
         ${movie.comments.map(comment => `<li>${comment.user}: ${comment.text}</li>`).join('')}
@@ -169,6 +169,22 @@
         moviesContainer.appendChild(movieCard);
       });
     }
+
+    async function likeMovie(movieId) {
+        const response = await fetch(`http://localhost:3000/movies/${movieId}/likes`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          // Successfully liked the movie, fetch and display updated movie list
+          fetchMovies();
+        } else {
+          console.error('Failed to like the movie');
+        }
+      }
 
     // Fetch movies when the page loads
     document.addEventListener('DOMContentLoaded', fetchMovies);
