@@ -98,6 +98,17 @@ async getAllMovies() {
     }
   }
 
+  deleteMovie(movieId) {
+    const index = this.movies.findIndex(movie => movie.id === movieId);
+
+    if (index !== -1) {
+      this.movies.splice(index, 1);
+      return true; // Movie successfully deleted
+    }
+
+    return false; // Movie not found
+  }
+
   async getMovieLikes(id) {
     const client = await pool.connect();
     try {

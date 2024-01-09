@@ -15,6 +15,8 @@ router.get('/', async (req, res) => {
   await moviesController.getAllMovies(req, res);
 });
 
+router.delete('/:id', moviesController.deleteMovie);
+
 router.get('/:id', async (req, res) => {
   await moviesController.getMovieById(req, res);
 });

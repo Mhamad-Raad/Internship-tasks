@@ -19,6 +19,10 @@ class MoviesService {
     return movies.getMovieById(id);
   }
 
+  async deleteMovie(id) {
+    return movies.deleteMovie(id);
+  }
+
   async getMovieLikes(id) {
     return movies.getMovieLikes(id);
   }

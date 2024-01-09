@@ -108,6 +108,19 @@ class MoviesController {
       res.status(500).send('Internal Server Error');
     }
   }
+
+  deleteMovie(req, res) {
+    const movieId = parseInt(req.params.id);
+
+    // Call the deleteMovie method from your Movies module (assuming you have this method)
+    const result = moviesService.deleteMovie(movieId);
+
+    if (result) {
+      res.status(204).end(); // 204 No Content for successful deletion
+    } else {
+      res.status(404).send('Movie not found');
+    }
+  }
 }
 
 module.exports = MoviesController;
