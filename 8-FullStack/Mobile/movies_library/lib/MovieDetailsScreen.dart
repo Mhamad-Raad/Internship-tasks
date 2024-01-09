@@ -2,77 +2,109 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:movies_library/main.dart';
-
+// ignore: must_be_immutable
 class MovieDetailsScreen extends StatefulWidget {
-  final Movie movie;
+  dynamic movie;
 
-  const MovieDetailsScreen({Key? key, required this.movie}) : super(key: key);
+  MovieDetailsScreen({Key? key, required this.movie}) : super(key: key);
 
   @override
   _MovieDetailsScreenState createState() => _MovieDetailsScreenState();
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
-  List<Comment> comments = [];
+  var inputController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    fetchComments();
-  }
-
-  Future<void> fetchComments() async {
-    final response = await http.get(Uri.parse(
-        'http://192.168.1.41:3000/movies/${widget.movie.id}/comments'));
-
-    if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
-      setState(() {
-        comments = data.map((json) => Comment.fromJson(json)).toList();
-      });
-    } else {
-      throw Exception('Failed to load comments');
-    }
   }
 
   Future<void> likeMovie() async {
-    final response = await http.post(
-        Uri.parse('http://192.168.1.41:3000/movies/${widget.movie.id}/likes'));
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}/likes'),
+      );
 
-    if (response.statusCode == 200) {
-      // Successfully liked the movie, update UI or fetch updated data
-    } else {
-      print('Failed to like the movie');
+      if (response.statusCode == 200) {
+        // Successfully liked the movie, update UI or fetch updated data
+        fetchMovieDetails();
+      } else {
+        print('Failed to like the movie. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error liking the movie: $error');
     }
   }
 
   Future<void> deleteMovie() async {
-    final response = await http.delete(
-        Uri.parse('http://192.168.1.41:3000/movies/${widget.movie.id}'));
+    try {
+      final response = await http.delete(Uri.parse(
+          'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}'));
 
-    if (response.statusCode == 200) {
-      // Successfully deleted the movie, navigate back or show a success message
-    } else {
-      print('Failed to delete the movie');
+      if (response.statusCode == 200) {
+        // Successfully deleted the movie, navigate back or show a success message
+        // For now, let's fetch the updated movie details
+        fetchMovieDetails();
+      } else {
+        print(
+            'Failed to delete the movie. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error deleting the movie: $error');
     }
   }
 
-  Future<void> addComment(String text) async {
-    final response = await http.post(
+  Future<void> addComment() async {
+    var text = inputController.text;
+    print(text);
+    try {
+      final response = await http.post(
         Uri.parse(
-            'http://192.168.1.41:3000/movies/${widget.movie.id}/comments'),
-        body: {'text': text});
+            'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}/comments'),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({'text': text, 'user': 'someone'}),
+      );
 
-    if (response.statusCode == 200) {
-      // Successfully added the comment, update UI or fetch updated data
-    } else {
-      print('Failed to add comment');
+      print('Failed to add comment. Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 201) {
+        // Successfully added the comment, update UI or fetch updated data
+        fetchMovieDetails();
+        inputController.clear();
+      } else {
+        print('Failed to add comment. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error adding comment: $error');
+    }
+  }
+
+  // Function to fetch updated movie details
+  Future<void> fetchMovieDetails() async {
+    try {
+      final response = await http.get(Uri.parse(
+          'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}'));
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        setState(() {
+          widget.movie = data;
+        });
+      } else {
+        print(
+            'Failed to fetch updated movie details. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching updated movie details: $error');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    print(widget.movie);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Movie Details'),
@@ -82,9 +114,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.movie.title,
+            Text(widget.movie['title'],
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            Text(widget.movie.description),
+            Text(widget.movie['description']),
             // Display other movie details as needed
 
             SizedBox(height: 16),
@@ -108,16 +140,34 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
 
             SizedBox(height: 16),
-
-            Text('Comments:',
+            Text('Likes: ${widget.movie['likes']}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+            Row(
+              children: [
+                const Expanded(
+                  child: Text('Comments:',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                ),
+                ElevatedButton(
+                  onPressed: () => addComment(),
+                  child: Text('Add'),
+                ),
+              ],
+            ),
 
             Expanded(
               child: ListView.builder(
-                itemCount: comments.length,
+                itemCount: widget.movie['comments']?.length ?? 0,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(comments[index].text),
+                    title: Text(
+                        json.decode(widget.movie['comments'][index])['user'] ??
+                            ''),
+                    subtitle: Text(
+                        json.decode(widget.movie['comments'][index])['text'] ??
+                            ''),
                     // Display other comment details as needed
                   );
                 },
@@ -127,7 +177,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             SizedBox(height: 16),
 
             TextField(
-              onSubmitted: (text) => addComment(text),
+              controller: inputController,
               decoration: InputDecoration(
                 labelText: 'Add a comment',
                 border: OutlineInputBorder(),
@@ -137,15 +187,5 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
       ),
     );
-  }
-}
-
-class Comment {
-  final String text;
-
-  Comment({required this.text});
-
-  factory Comment.fromJson(Map<String, dynamic> json) {
-    return Comment(text: json['text']);
   }
 }

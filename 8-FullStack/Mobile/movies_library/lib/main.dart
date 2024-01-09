@@ -28,7 +28,7 @@ class MovieListScreen extends StatefulWidget {
 }
 
 class _MovieListScreenState extends State<MovieListScreen> {
-  List<Movie> movies = [];
+  List movies = [];
 
   Future<void> fetchMovies() async {
     print('works');
@@ -40,7 +40,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
       final List<dynamic> data = await json.decode(response.body);
       print(data);
       setState(() {
-        movies = data.map((json) => Movie.fromJson(json)).toList();
+        movies = data;
       });
       print('object');
     } else {
@@ -73,7 +73,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
 }
 
 class MovieCard extends StatelessWidget {
-  final Movie movie;
+  final movie;
 
   const MovieCard({Key? key, required this.movie}) : super(key: key);
 
@@ -82,14 +82,14 @@ class MovieCard extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(
-          movie.title,
+          movie['title'],
           // style the text blakc and big
           style: const TextStyle(
             color: Colors.black,
             fontSize: 24,
           ),
         ),
-        subtitle: Text(movie.description),
+        subtitle: Text(movie['description']),
         onTap: () {
           Navigator.push(
               context,
@@ -97,24 +97,6 @@ class MovieCard extends StatelessWidget {
                   builder: (context) => MovieDetailsScreen(movie: movie)));
         },
       ),
-    );
-  }
-}
-
-class Movie {
-  final int id;
-  final String title;
-  final String description;
-  // Add other fields as needed
-
-  Movie({required this.id, required this.title, required this.description});
-
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
-      id: json['movie_id'],
-      title: json['title'],
-      description: json['description'],
-      // Parse other fields from the JSON response
     );
   }
 }
