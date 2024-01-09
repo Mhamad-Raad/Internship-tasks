@@ -98,15 +98,38 @@ async getAllMovies() {
     }
   }
 
-  deleteMovie(movieId) {
-    const index = this.movies.findIndex(movie => movie.id === movieId);
+ async deleteMovie(movieId) {
+    const client = await pool.connect();
 
-    if (index !== -1) {
-      this.movies.splice(index, 1);
+    try {
+      await client.query('BEGIN');
+
+      // Delete related records in the movie_cast table
+      const deleteCastQuery = 'DELETE FROM movie_cast WHERE movie_id = $1';
+      await client.query(deleteCastQuery, [movieId]);
+
+      // Delete the movie from the database
+      const deleteMovieQuery = 'DELETE FROM movies WHERE movie_id = $1 RETURNING *';
+      const deletedMovie = await client.query(deleteMovieQuery, [movieId]);
+
+      if (deletedMovie.rows.length === 0) {
+        // Movie not found
+        await client.query('ROLLBACK');
+        return false;
+      }
+
+      // Commit the transaction
+      await client.query('COMMIT');
+
       return true; // Movie successfully deleted
+    } catch (error) {
+      // Handle errors
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      // Release the client back to the pool
+      client.release();
     }
-
-    return false; // Movie not found
   }
 
   async getMovieLikes(id) {

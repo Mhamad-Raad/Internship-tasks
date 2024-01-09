@@ -218,6 +218,19 @@
           }
         }
 
+            async function deleteMovie(movieId) {
+                const response = await fetch(`http://localhost:3000/movies/${movieId}`, {
+                  method: 'DELETE',
+                });
+
+                if (response.ok) {
+                  // Successfully deleted the movie, fetch and display updated movie list
+                  fetchMovies();
+                } else {
+                  console.error('Failed to delete the movie');
+                }
+              }
+
     // Fetch movies when the page loads
     document.addEventListener('DOMContentLoaded', fetchMovies);
 
