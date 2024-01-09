@@ -93,9 +93,12 @@ async getAllMovies() {
     try {
       await client.query('BEGIN');
 
-      // Update the movie in the database
-      const updateMovieQuery = 'UPDATE movies SET title = $2, description = $3, release_year = $4, genre = $5, director = $6 WHERE id = $1 RETURNING *';
+      // Log the SQL query and values
+      const updateMovieQuery = 'UPDATE movies SET title = $2, description = $3, release_year = $4, genre = $5, director = $6 WHERE movie_id = $1 RETURNING *';
       const values = [movieId, updatedMovieData.title, updatedMovieData.description, updatedMovieData.release_year, updatedMovieData.genre, updatedMovieData.director];
+      console.log('Executing SQL query:', updateMovieQuery, 'with values:', values);
+
+      // Update the movie in the database
       const updatedMovie = await client.query(updateMovieQuery, values);
 
       if (updatedMovie.rows.length === 0) {
@@ -109,6 +112,9 @@ async getAllMovies() {
 
       return updatedMovie.rows[0]; // Updated movie
     } catch (error) {
+      // Log the error
+      console.error('Error updating movie:', error);
+
       // Handle errors
       await client.query('ROLLBACK');
       throw error;
