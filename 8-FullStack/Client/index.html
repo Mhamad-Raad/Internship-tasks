@@ -158,12 +158,15 @@
       <button onclick="likeMovie(${movie.movie_id})">Like</button>
       <h4>Comments</h4>
       <ul>
-        ${movie.comments.map(comment => `<li>${comment.user}: ${comment.text}</li>`).join('')}
+        ${movie.comments.map(comment => {
+          comment =  JSON.parse(comment);
+          return `<li>${comment.user}: ${comment.text}</li>`;
+        })}
       </ul>
-      <input type="text" id="comment-${movie.id}" placeholder="Add a comment">
-      <button onclick="addComment(${movie.id})">Add Comment</button>
-      <button onclick="editMovie(${movie.id})">Edit</button>
-      <button onclick="deleteMovie(${movie.id})">Delete</button>
+      <input type="text" id="comment-${movie.movie_id}" placeholder="Add a comment">
+      <button onclick="addComment(${movie.movie_id})">Add Comment</button>
+      <button onclick="editMovie(${movie.movie_id})">Edit</button>
+      <button onclick="deleteMovie(${movie.movie_id})">Delete</button>
     `;
 
         moviesContainer.appendChild(movieCard);
@@ -185,6 +188,35 @@
           console.error('Failed to like the movie');
         }
       }
+
+      async function addComment(movieId) {
+          const commentInput = document.getElementById(`comment-${movieId}`);
+          const commentText = commentInput.value;
+
+          if (commentText.trim() === '') {
+            alert('Please enter a comment.');
+            return;
+          }
+
+          const response = await fetch(`http://localhost:3000/movies/${movieId}/comments`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user: 'John Doe', // Replace with the actual user or fetch it from your authentication system
+              text: commentText,
+            }),
+          });
+
+          if (response.ok) {
+            // Successfully added the comment, fetch and display updated movie list
+            fetchMovies();
+            commentInput.value = ''; // Clear the comment input
+          } else {
+            console.error('Failed to add comment');
+          }
+        }
 
     // Fetch movies when the page loads
     document.addEventListener('DOMContentLoaded', fetchMovies);
