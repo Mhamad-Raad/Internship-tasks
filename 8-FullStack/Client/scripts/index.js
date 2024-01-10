@@ -39,3 +39,7 @@ function displayMovies(movies) {
 function viewMovieDetails(movieId) {
   window.location.href = `detail.html?movieId=${movieId}`;
 }
+
+function navigateToAddMovie() {
+  window.location.href = 'add_movie.html';
+}

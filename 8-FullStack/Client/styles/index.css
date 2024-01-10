@@ -36,3 +36,27 @@ h1 {
 .movie-card p {
   color: #777;
 }
+
+/* styles.css */
+
+/* ... (existing styles) */
+
+#add-movie-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff; /* Button color */
+  color: #fff; /* Text color */
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+#add-movie-button:hover {
+  background-color: #0056b3; /* Change color on hover */
+  transform: scale(1.1);
+}
