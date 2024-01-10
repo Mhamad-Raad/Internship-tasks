@@ -141,10 +141,47 @@ class Movies {
     const client = await pool.connect();
     try {
       const result = await client.query(
-        'SELECT * FROM movies WHERE movie_id = $1',
+        `SELECT movies.*, 
+        actors.name AS cast_name, 
+        actors.age AS cast_age, 
+        actors.country_of_origin AS cast_country
+        FROM movies 
+        LEFT JOIN movie_cast ON movies.movie_id = movie_cast.movie_id
+        LEFT JOIN actors ON movie_cast.actor_id = actors.actor_id
+        WHERE movies.movie_id = $1;`,
         [id]
       );
-      return result.rows[0];
+
+      if (result.rows.length === 0) {
+        // Movie not found
+        return null;
+      }
+
+      const movie = {
+        movie_id: result.rows[0].movie_id,
+        title: result.rows[0].title,
+        description: result.rows[0].description,
+        release_year: result.rows[0].release_year,
+        genre: result.rows[0].genre,
+        director: result.rows[0].director,
+        likes: result.rows[0].likes,
+        comments: result.rows[0].comments,
+        cast: [], // Initialize an empty array for cast members
+      };
+
+      // Loop through the result rows to populate the cast array
+      result.rows.forEach((row) => {
+        if (row.cast_name) {
+          // If there is cast information, add it to the cast array
+          movie.cast.push({
+            name: row.cast_name,
+            age: row.cast_age,
+            country_of_origin: row.cast_country,
+          });
+        }
+      });
+
+      return movie;
     } finally {
       client.release();
     }
