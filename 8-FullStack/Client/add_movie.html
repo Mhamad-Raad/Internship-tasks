@@ -8,6 +8,44 @@
   </head>
 
   <body>
+    <div id="app">
+      <h1>Add New Movie</h1>
+
+      <form id="add-movie-form">
+        <label for="title">Title:</label>
+        <input type="text" id="title" required />
+
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea>
+
+        <label for="releaseYear">Release Year:</label>
+        <input type="number" id="releaseYear" required />
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" required />
+
+        <label for="director">Director:</label>
+        <input type="text" id="director" required />
+
+        <div id="casts-container">
+          <h3>Cast:</h3>
+          <div class="cast-input" id="cast-1">
+            <label for="castName1">Name:</label>
+            <input type="text" id="castName1" required />
+
+            <label for="castAge1">Age:</label>
+            <input type="number" id="castAge1" required />
+
+            <label for="castCountry1">Country of Origin:</label>
+            <input type="text" id="castCountry1" required />
+          </div>
+        </div>
+
+        <button type="button" onclick="addCastInput()">Add Cast</button>
+
+        <button type="button" onclick="addMovie()">Add Movie</button>
+      </form>
+    </div>
     <script src="./scripts/add_movie.js"></script>
   </body>
 </html>

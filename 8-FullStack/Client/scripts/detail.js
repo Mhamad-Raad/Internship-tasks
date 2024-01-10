@@ -170,8 +170,9 @@ async function editMovie(movieId) {
     });
 
     if (response.ok) {
-      // Successfully updated movie, fetch and display updated movie list
-      fetchMovies();
+      window.location.href = 'index.html';
+      history.pushState(null, null, url.href);
+      window.location.reload();
     } else {
       console.error('Failed to update movie');
     }
@@ -189,7 +190,9 @@ async function deleteMovie(movieId) {
 
     if (response.ok) {
       // Successfully deleted the movie, fetch and display updated movie list
-      fetchMovies();
+      window.location.href = 'index.html';
+      history.pushState(null, null, url.href);
+      window.location.reload();
     } else {
       console.error('Failed to delete the movie');
     }
