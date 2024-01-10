@@ -107,18 +107,23 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Future<void> updateMovie() async {
     // Implement your logic to send a PUT request to update the movie
     // For example, you can use http package to send a PUT request
+    print('works here');
     try {
       final response = await http.put(
         Uri.parse(
-          'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}',
+          'http://172.16.7.36:3000/movies/${widget.movie['movie_id']}',
         ),
         headers: {"Content-Type": "application/json"},
-        body: jsonEncode(
-          {
-            'description': inputDescriptionController.text,
-            'title': inputTitleController.text,
+        body: jsonEncode({
+          'description': inputDescriptionController.text,
+          'title': inputTitleController.text,
+          'release_year': widget.movie['release_year'],
+          'genre': widget.movie['genre'],
+          'director': widget.movie['director'],
         }),
       );
+
+      print(response.body);
 
       if (response.statusCode == 200) {
         // Successfully updated the movie, fetch updated data
