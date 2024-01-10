@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_library/AddingMovieScreen.dart';
 import 'package:movies_library/MovieDetailsScreen.dart';
 
 void main() {
@@ -67,6 +68,18 @@ class _MovieListScreenState extends State<MovieListScreen> {
           print(movies);
           return MovieCard(movie: movies[index]);
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigate to AddMovieScreen when the FloatingActionButton is pressed
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddMovieScreen(),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
