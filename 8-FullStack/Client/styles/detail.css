@@ -114,3 +114,18 @@ h1 {
   background-color: #333;
   color: #fff;
 }
+
+.movie-details .delete {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.movie-details .save {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.movie-details .add {
+  background-color: #2196f3;
+  color: #fff;
+}

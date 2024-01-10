@@ -52,31 +52,67 @@ function displayMovieDetails(movieDetails) {
         .join('')}
     </ul>
     <div class="comments">
-    <h4>Comments</h4>
-          ${
-            movieDetails.comments.length > 0
-              ? movieDetails.comments
-                  .map((comment) => {
-                    comment = JSON.parse(comment);
-                    return `<p>${comment['text']} - ${comment['user']}</p>`;
-                  })
-                  .join('')
-              : '<p>No comments yet</p>'
-          }
+      <h4>Comments</h4>
+      ${
+        movieDetails.comments.length > 0
+          ? movieDetails.comments
+              .map((comment) => {
+                comment = JSON.parse(comment);
+                return `<p>${comment['text']} - ${comment['user']}</p>`;
+              })
+              .join('')
+          : '<p>No comments yet</p>'
+      }
+      <input type="text" id="newComment" placeholder="Add a comment" />
+      <button class="add" onclick="addNewComment(${
+        movieDetails.movie_id
+      })">Add Comment</button>
     </div>
-    <button onclick="editMovie(${movieDetails.movie_id})">Save</button>
-    <button onclick="deleteMovie(${movieDetails.movie_id})">Delete</button>
+    <button class="save" onclick="editMovie(${
+      movieDetails.movie_id
+    })">Save Changes</button>
+    <button class="delete" onclick="deleteMovie(${
+      movieDetails.movie_id
+    })">Delete</button>
   `;
+}
 
-  // You might want to add an event listener to the "Save" button here
-  const saveButton = document.querySelector(
-    '#movie-details button[onclick="editMovie"]'
-  );
+// Function to add a new comment
+async function addNewComment(movieId) {
+  const newCommentInput = document.getElementById('newComment');
+  const newCommentText = newCommentInput.value.trim();
 
-  saveButton.addEventListener('click', () => {
-    // Call the editMovie function when the "Save" button is clicked
-    editMovie(movieDetails.movie_id);
-  });
+  if (newCommentText === '') {
+    alert('Please enter a comment.');
+    return;
+  }
+
+  try {
+    // Send a POST request to add a new comment
+    const response = await fetch(
+      `http://localhost:3000/movies/${movieId}/comments`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: 'John Doe', // Replace with the actual user or fetch it from your authentication system
+          text: newCommentText,
+        }),
+      }
+    );
+
+    if (response.ok) {
+      // Successfully added the comment, fetch and display updated movie details
+      fetchMovieDetails(movieId);
+      newCommentInput.value = ''; // Clear the comment input
+    } else {
+      console.error('Failed to add comment');
+    }
+  } catch (error) {
+    console.error('Error adding comment:', error);
+  }
 }
 
 async function editMovie(movieId) {
