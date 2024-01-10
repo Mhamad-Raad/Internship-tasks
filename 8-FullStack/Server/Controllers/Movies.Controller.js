@@ -34,7 +34,7 @@ class MoviesController {
   async updateMovie(req, res) {
     const movieId = parseInt(req.params.id);
     const updatedMovieData = req.body; // Assuming request body contains updated movie details
-
+    console.log('here')
     try {
       const updatedMovie = await moviesService.updateMovie(
         movieId,
