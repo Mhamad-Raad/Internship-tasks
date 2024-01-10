@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_library/MovieCastScreen.dart';
 import 'dart:convert';
 
 import 'package:movies_library/main.dart';
@@ -7,8 +8,10 @@ import 'package:movies_library/main.dart';
 // ignore: must_be_immutable
 class MovieDetailsScreen extends StatefulWidget {
   dynamic movie_id;
+  dynamic cast;
 
-  MovieDetailsScreen({Key? key, required this.movie_id}) : super(key: key);
+  MovieDetailsScreen({Key? key, required this.movie_id, required this.cast})
+      : super(key: key);
 
   @override
   _MovieDetailsScreenState createState() => _MovieDetailsScreenState();
@@ -158,6 +161,21 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           onPressed: () => Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const MovieListScreen())),
         ),
+        actions: [
+          ElevatedButton(
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CastScreen(
+                    castMembers: widget.cast,
+                  ),
+                ),
+              )
+            },
+            child: Text("see cast"),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(

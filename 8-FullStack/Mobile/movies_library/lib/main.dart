@@ -94,8 +94,8 @@ class MovieCard extends StatelessWidget {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      MovieDetailsScreen(movie_id: movie['movie_id'])));
+                  builder: (context) => MovieDetailsScreen(
+                      movie_id: movie['movie_id'], cast: movie['cast'])));
         },
       ),
     );
