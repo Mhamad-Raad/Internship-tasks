@@ -33,7 +33,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
   Future<void> fetchMovies() async {
     print('works');
     final response =
-        await http.get(Uri.parse('http://172.16.7.36:3000/movies'));
+        await http.get(Uri.parse('http://192.168.1.41:3000/movies'));
     print('here: $response');
 
     if (response.statusCode == 200) {
@@ -91,10 +91,11 @@ class MovieCard extends StatelessWidget {
         ),
         subtitle: Text(movie['description']),
         onTap: () {
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => MovieDetailsScreen(movie: movie)));
+                  builder: (context) =>
+                      MovieDetailsScreen(movie_id: movie['movie_id'])));
         },
       ),
     );
