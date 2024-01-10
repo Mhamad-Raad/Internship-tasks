@@ -71,10 +71,37 @@ function displayMovieDetails(movieDetails) {
     <button class="save" onclick="editMovie(${
       movieDetails.movie_id
     })">Save Changes</button>
+    <button class="like" onclick="likeMovie(${
+      movieDetails.movie_id
+    })">Like</button>
     <button class="delete" onclick="deleteMovie(${
       movieDetails.movie_id
     })">Delete</button>
   `;
+}
+
+async function likeMovie(movieId) {
+  try {
+    // Send a POST request to like the movie
+    const response = await fetch(
+      `http://localhost:3000/movies/${movieId}/likes`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (response.ok) {
+      // Successfully liked the movie, fetch and display updated movie details
+      fetchMovieDetails(movieId);
+    } else {
+      console.error('Failed to like the movie');
+    }
+  } catch (error) {
+    console.error('Error liking the movie:', error);
+  }
 }
 
 // Function to add a new comment

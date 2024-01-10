@@ -2,13 +2,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #f5f5f5;
+  background-color: #2b2a25;
 }
 
 h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
+  color: #bdbcbc;
   text-align: center;
 }
 
@@ -128,4 +128,25 @@ h1 {
 .movie-details .add {
   background-color: #2196f3;
   color: #fff;
+}
+
+.movie-details .like {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+.movie-details .delete:hover {
+  background-color: #b71c1c;
+}
+
+.movie-details .like:hover {
+  background-color: #ef6c00;
+}
+
+.movie-details .save:hover {
+  background-color: #087f23;
+}
+
+.movie-details .add:hover {
+  background-color: #0d47a1;
 }
