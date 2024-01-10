@@ -41,8 +41,8 @@ function displayMovieDetails(movieDetails) {
     }" />
     <input type="text" id="genre" value="${movieDetails.genre}" />
     <input type="text" id="director" value="${movieDetails.director}" />
-    <p>Likes: ${movieDetails.likes}</p>
-    <h4>Cast</h4>
+    <p class="likes">Likes: ${movieDetails.likes}</p>
+    <h4 class="cast">Cast</h4>
     <ul>
       ${movieDetails.cast
         .map(
@@ -51,6 +51,19 @@ function displayMovieDetails(movieDetails) {
         )
         .join('')}
     </ul>
+    <div class="comments">
+    <h4>Comments</h4>
+          ${
+            movieDetails.comments.length > 0
+              ? movieDetails.comments
+                  .map((comment) => {
+                    comment = JSON.parse(comment);
+                    return `<p>${comment['text']} - ${comment['user']}</p>`;
+                  })
+                  .join('')
+              : '<p>No comments yet</p>'
+          }
+    </div>
     <button onclick="editMovie(${movieDetails.movie_id})">Save</button>
     <button onclick="deleteMovie(${movieDetails.movie_id})">Delete</button>
   `;
@@ -59,6 +72,7 @@ function displayMovieDetails(movieDetails) {
   const saveButton = document.querySelector(
     '#movie-details button[onclick="editMovie"]'
   );
+
   saveButton.addEventListener('click', () => {
     // Call the editMovie function when the "Save" button is clicked
     editMovie(movieDetails.movie_id);

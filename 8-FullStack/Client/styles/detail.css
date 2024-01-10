@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 10px;
+  width: 80%;
+  height: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.movie-details > * {
+  width: 100%;
+}
+
+.movie-details input {
+  padding: 10px;
+  font-weight: 700;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.movie-details input:focus {
+  border-color: #333;
+}
+
+.movie-details textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  resize: none;
+  height: 6em;
+  font-weight: 700;
+}
+
+.movie-details textarea:focus {
+  border-color: #333;
+}
+
+.movie-details .likes {
+  font-size: larger;
+  font-weight: 700;
+  color: #333;
+}
+
+.movie-details .cast {
+  font-size: larger;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.movie-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movie-details ul li {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.movie-details ul li:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.movie-details .comments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.movie-details .comments > * {
+  width: 100%;
+  margin: 0;
+}
+
+.movie-details button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.movie-details button:hover {
+  background-color: #333;
+  color: #fff;
+}
