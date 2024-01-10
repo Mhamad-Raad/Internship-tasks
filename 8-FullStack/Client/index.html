@@ -1,67 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Library</title>
+    <link rel="stylesheet" href="./styles/header.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movie Library</title>
-  <link rel="stylesheet" href="./styles/header.css">
-</head>
+  <body>
+    <div id="app">
+      <h1>Movie Library</h1>
 
-<body>
-
-  <div id="app">
-    <h1>Movie Library</h1>
-
-    <div id="movies-container">
-      <!-- Movies will be dynamically added here -->
-    </div>
-
-    <div id="add-movie-form">
-      <h2>Add New Movie</h2>
-      <label for="title">Title:</label>
-      <input type="text" id="title" required>
-      <label for="description">Description:</label>
-      <textarea id="description" required></textarea>
-      <label for="releaseYear">Release Year:</label>
-      <input type="number" id="releaseYear" required>
-      <label for="genre">Genre:</label>
-      <input type="text" id="genre" required>
-      <label for="director">Director:</label>
-      <input type="text" id="director" required>
-
-      <div id="casts-container">
-        <h3>Cast:</h3>
-        <div class="cast-input" id="cast-1">
-          <label for="castName1">Name:</label>
-          <input type="text" id="castName1" required>
-          <label for="castAge1">Age:</label>
-          <input type="number" id="castAge1" required>
-          <label for="castCountry1">Country of Origin:</label>
-          <input type="text" id="castCountry1" required>
-        </div>
+      <div id="movies-container">
+        <!-- Movies will be dynamically added here -->
       </div>
 
-      <button onclick="addCastInput()">Add Cast</button>
+      <div id="add-movie-form">
+        <h2>Add New Movie</h2>
+        <label for="title">Title:</label>
+        <input type="text" id="title" required />
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea>
+        <label for="releaseYear">Release Year:</label>
+        <input type="number" id="releaseYear" required />
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" required />
+        <label for="director">Director:</label>
+        <input type="text" id="director" required />
 
-      <button onclick="addMovie()">Add Movie</button>
+        <div id="casts-container">
+          <h3>Cast:</h3>
+          <div class="cast-input" id="cast-1">
+            <label for="castName1">Name:</label>
+            <input type="text" id="castName1" required />
+            <label for="castAge1">Age:</label>
+            <input type="number" id="castAge1" required />
+            <label for="castCountry1">Country of Origin:</label>
+            <input type="text" id="castCountry1" required />
+          </div>
+        </div>
+
+        <button onclick="addCastInput()">Add Cast</button>
+
+        <button onclick="addMovie()">Add Movie</button>
+      </div>
     </div>
-  </div>
 
-  <script>
-    let castCounter = 1;
+    <script>
+      let castCounter = 1;
 
-  // Function to add a new set of cast inputs
-  function addCastInput() {
-    if (castCounter < 3) {
-      castCounter++;
+      // Function to add a new set of cast inputs
+      function addCastInput() {
+        if (castCounter < 3) {
+          castCounter++;
 
-      const castsContainer = document.getElementById('casts-container');
-      const newCastInput = document.createElement('div');
-      newCastInput.classList.add('cast-input');
-      newCastInput.id = `cast-${castCounter}`;
+          const castsContainer = document.getElementById('casts-container');
+          const newCastInput = document.createElement('div');
+          newCastInput.classList.add('cast-input');
+          newCastInput.id = `cast-${castCounter}`;
 
-      newCastInput.innerHTML = `
+          newCastInput.innerHTML = `
         <label for="castName${castCounter}">Name:</label>
         <input type="text" id="castName${castCounter}" required>
         <label for="castAge${castCounter}">Age:</label>
@@ -70,215 +68,242 @@
         <input type="text" id="castCountry${castCounter}" required>
       `;
 
-      castsContainer.appendChild(newCastInput);
-    }
-    else {
-      alert('You can only add up to 3 casts!');
-    }
-  }
-
-    async function addMovie() {
-      const title = document.getElementById('title').value;
-      const description = document.getElementById('description').value;
-      const releaseYear = document.getElementById('releaseYear').value;
-      const genre = document.getElementById('genre').value;
-      const director = document.getElementById('director').value;
-
-      // Collect cast data
-      const castData = [];
-      for (let i = 1; i <= castCounter; i++) {
-        const name = document.getElementById(`castName${i}`).value;
-        const age = document.getElementById(`castAge${i}`).value;
-        const country = document.getElementById(`castCountry${i}`).value;
-        castData.push({ name, age, country_of_origin: country });
+          castsContainer.appendChild(newCastInput);
+        } else {
+          alert('You can only add up to 3 casts!');
+        }
       }
 
-      const response = await fetch('http://localhost:3000/movies', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          releaseYear,
-          genre,
-          director,
-          cast: castData,
-        }),
-      });
+      async function addMovie() {
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const releaseYear = document.getElementById('releaseYear').value;
+        const genre = document.getElementById('genre').value;
+        const director = document.getElementById('director').value;
 
-      if (response.ok) {
-        // Successfully added movie, fetch and display updated movie list
-        fetchMovies();
-      } else {
-        console.error('Failed to add movie');
+        // Collect cast data
+        const castData = [];
+        for (let i = 1; i <= castCounter; i++) {
+          const name = document.getElementById(`castName${i}`).value;
+          const age = document.getElementById(`castAge${i}`).value;
+          const country = document.getElementById(`castCountry${i}`).value;
+          castData.push({ name, age, country_of_origin: country });
+        }
+
+        const response = await fetch('http://localhost:3000/movies', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            release_year: releaseYear,
+            genre,
+            director,
+            cast: castData,
+          }),
+        });
+
+        if (response.ok) {
+          // Successfully added movie, fetch and display updated movie list
+          fetchMovies();
+        } else {
+          console.error('Failed to add movie');
+        }
       }
-    }
 
-  // Assuming you have a backend API endpoint for fetching movies at http://your-backend-api/movies
-  const backendApiUrl = 'http://localhost:3000/movies';
+      // Assuming you have a backend API endpoint for fetching movies at http://your-backend-api/movies
+      const backendApiUrl = 'http://localhost:3000/movies';
 
-  // Fetch movies from the backend
-  async function fetchMovies() {
-    try {
-      const response = await fetch(backendApiUrl);
+      // Fetch movies from the backend
+      async function fetchMovies() {
+        try {
+          const response = await fetch(backendApiUrl);
 
-      if (!response.ok) {
-        // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
-        console.error(`Failed to fetch movies. Status: ${response.status}`);
-        return;
+          if (!response.ok) {
+            // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
+            console.error(`Failed to fetch movies. Status: ${response.status}`);
+            return;
+          }
+
+          const movies = await response.json();
+          displayMovies(movies);
+        } catch (error) {
+          // Handle fetch errors
+          console.error('Error fetching movies:', error);
+        }
       }
 
-      const movies = await response.json();
-      displayMovies(movies);
-    } catch (error) {
-      // Handle fetch errors
-      console.error('Error fetching movies:', error);
-    }
-  }
+      // Example of displaying movies (replace this with your own display logic)
+      function displayMovies(movies) {
+        const moviesContainer = document.getElementById('movies-container');
+        moviesContainer.innerHTML = '';
 
-  // Example of displaying movies (replace this with your own display logic)
-  function displayMovies(movies) {
-    const moviesContainer = document.getElementById('movies-container');
-    moviesContainer.innerHTML = '';
-
-    movies.forEach(movie => {
-      const movieCard = document.createElement('div');
-      movieCard.classList.add('movie-card');
-      console.log(movie)
-      movieCard.innerHTML = `
+        movies.forEach((movie) => {
+          const movieCard = document.createElement('div');
+          movieCard.classList.add('movie-card');
+          console.log(movie);
+          movieCard.innerHTML = `
     <h3>${movie.title}</h3>
     <p>${movie.description}</p>
     <p>Release Year: ${movie.release_year}</p>
     <p>Genre: ${movie.genre}</p>
     <p>Director: ${movie.director}</p>
-    <p>Cast: ${movie.cast.map(actor => `${actor.name} (${actor.age}, ${actor.country_of_origin})`).join(', ')}</p>
+    <p>Cast: ${movie.cast
+      .map(
+        (actor) => `${actor.name} (${actor.age}, ${actor.country_of_origin})`
+      )
+      .join(', ')}</p>
     <p>Likes: ${movie.likes}</p>
     <button onclick="likeMovie(${movie.movie_id})">Like</button>
     <h4>Comments</h4>
     <ul>
-      ${movie.comments.map(comment => {
-        comment =  JSON.parse(comment);
+      ${movie.comments.map((comment) => {
+        comment = JSON.parse(comment);
         return `<li>${comment.user}: ${comment.text}</li>`;
       })}
     </ul>
-    <input type="text" id="comment-${movie.movie_id}" placeholder="Add a comment">
+    <input type="text" id="comment-${
+      movie.movie_id
+    }" placeholder="Add a comment">
     <button onclick="addComment(${movie.movie_id})">Add Comment</button>
     <button onclick="editMovie(${movie.movie_id})">Edit</button>
     <button onclick="deleteMovie(${movie.movie_id})">Delete</button>
   `;
 
-      moviesContainer.appendChild(movieCard);
-    });
-  }
-
-  async function likeMovie(movieId) {
-      const response = await fetch(`http://localhost:3000/movies/${movieId}/likes`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        // Successfully liked the movie, fetch and display updated movie list
-        fetchMovies();
-      } else {
-        console.error('Failed to like the movie');
-      }
-    }
-
-  async function addComment(movieId) {
-      const commentInput = document.getElementById(`comment-${movieId}`);
-      const commentText = commentInput.value;
-
-      if (commentText.trim() === '') {
-        alert('Please enter a comment.');
-        return;
+          moviesContainer.appendChild(movieCard);
+        });
       }
 
-      const response = await fetch(`http://localhost:3000/movies/${movieId}/comments`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user: 'John Doe', // Replace with the actual user or fetch it from your authentication system
-          text: commentText,
-        }),
-      });
+      async function likeMovie(movieId) {
+        const response = await fetch(
+          `http://localhost:3000/movies/${movieId}/likes`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
-      if (response.ok) {
-        // Successfully added the comment, fetch and display updated movie list
-        fetchMovies();
-        commentInput.value = ''; // Clear the comment input
-      } else {
-        console.error('Failed to add comment');
-      }
-    }
-
-  async function deleteMovie(movieId) {
-      const response = await fetch(`http://localhost:3000/movies/${movieId}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        // Successfully deleted the movie, fetch and display updated movie list
-        fetchMovies();
-      } else {
-        console.error('Failed to delete the movie');
-      }
-    }
-
-  async function editMovie(movieId) {
-      // Fetch the current movie details
-      const currentMovie = await fetch(`http://localhost:3000/movies/${movieId}`)
-        .then(response => response.json())
-        .catch(error => console.error('Error fetching movie details:', error));
-
-      if (!currentMovie) {
-        console.error('Movie not found');
-        return;
+        if (response.ok) {
+          // Successfully liked the movie, fetch and display updated movie list
+          fetchMovies();
+        } else {
+          console.error('Failed to like the movie');
+        }
       }
 
-      // Prompt the user for updated details (you can use a form or other UI components)
-      const updatedTitle = prompt('Enter updated title:', currentMovie.title);
-      const updatedDescription = prompt('Enter updated description:', currentMovie.description);
-      const updatedReleaseYear = prompt('Enter updated release year:', currentMovie.release_year);
-      const updatedGenre = prompt('Enter updated genre:', currentMovie.genre);
-      const updatedDirector = prompt('Enter updated director:', currentMovie.director);
+      async function addComment(movieId) {
+        const commentInput = document.getElementById(`comment-${movieId}`);
+        const commentText = commentInput.value;
 
-      const updatedMovieData = {
-        title: updatedTitle,
-        description: updatedDescription,
-        release_year: updatedReleaseYear,
-        genre: updatedGenre,
-        director: updatedDirector,
-      };
+        if (commentText.trim() === '') {
+          alert('Please enter a comment.');
+          return;
+        }
 
-      // Send a PUT request to update the movie
-      const response = await fetch(`http://localhost:3000/movies/${movieId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedMovieData),
-      });
+        const response = await fetch(
+          `http://localhost:3000/movies/${movieId}/comments`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user: 'John Doe', // Replace with the actual user or fetch it from your authentication system
+              text: commentText,
+            }),
+          }
+        );
 
-      if (response.ok) {
-        // Successfully updated movie, fetch and display updated movie list
-        fetchMovies();
-      } else {
-        console.error('Failed to update movie');
+        if (response.ok) {
+          // Successfully added the comment, fetch and display updated movie list
+          fetchMovies();
+          commentInput.value = ''; // Clear the comment input
+        } else {
+          console.error('Failed to add comment');
+        }
       }
-    }
 
+      async function deleteMovie(movieId) {
+        const response = await fetch(
+          `http://localhost:3000/movies/${movieId}`,
+          {
+            method: 'DELETE',
+          }
+        );
 
-    // Fetch movies when the page loads
-    document.addEventListener('DOMContentLoaded', fetchMovies);
+        if (response.ok) {
+          // Successfully deleted the movie, fetch and display updated movie list
+          fetchMovies();
+        } else {
+          console.error('Failed to delete the movie');
+        }
+      }
 
-  </script>
-</body>
+      async function editMovie(movieId) {
+        // Fetch the current movie details
+        const currentMovie = await fetch(
+          `http://localhost:3000/movies/${movieId}`
+        )
+          .then((response) => response.json())
+          .catch((error) =>
+            console.error('Error fetching movie details:', error)
+          );
 
+        if (!currentMovie) {
+          console.error('Movie not found');
+          return;
+        }
+
+        // Prompt the user for updated details (you can use a form or other UI components)
+        const updatedTitle = prompt('Enter updated title:', currentMovie.title);
+        const updatedDescription = prompt(
+          'Enter updated description:',
+          currentMovie.description
+        );
+        const updatedReleaseYear = prompt(
+          'Enter updated release year:',
+          currentMovie.release_year
+        );
+        const updatedGenre = prompt('Enter updated genre:', currentMovie.genre);
+        const updatedDirector = prompt(
+          'Enter updated director:',
+          currentMovie.director
+        );
+
+        const updatedMovieData = {
+          title: updatedTitle,
+          description: updatedDescription,
+          release_year: updatedReleaseYear,
+          genre: updatedGenre,
+          director: updatedDirector,
+        };
+
+        // Send a PUT request to update the movie
+        const response = await fetch(
+          `http://localhost:3000/movies/${movieId}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedMovieData),
+          }
+        );
+
+        if (response.ok) {
+          // Successfully updated movie, fetch and display updated movie list
+          fetchMovies();
+        } else {
+          console.error('Failed to update movie');
+        }
+      }
+
+      // Fetch movies when the page loads
+      document.addEventListener('DOMContentLoaded', fetchMovies);
+    </script>
+  </body>
 </html>
