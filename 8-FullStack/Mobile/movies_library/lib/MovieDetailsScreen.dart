@@ -14,17 +14,22 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   var inputController = TextEditingController();
+  var inputDescriptionController = TextEditingController();
+  var inputTitleController = TextEditingController();
+  bool editMode = false;
 
   @override
   void initState() {
     super.initState();
+    inputDescriptionController.text = widget.movie['description'];
+    inputTitleController.text = widget.movie['title'];
   }
 
   Future<void> likeMovie() async {
     try {
       final response = await http.post(
         Uri.parse(
-            'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}/likes'),
+            'http://172.16.7.36:3000/movies/${widget.movie['movie_id']}/likes'),
       );
 
       if (response.statusCode == 200) {
@@ -41,7 +46,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Future<void> deleteMovie() async {
     try {
       final response = await http.delete(Uri.parse(
-          'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}'));
+          'http://172.16.7.36:3000/movies/${widget.movie['movie_id']}'));
 
       if (response.statusCode == 200) {
         fetchMovieDetails();
@@ -60,7 +65,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     try {
       final response = await http.post(
         Uri.parse(
-            'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}/comments'),
+            'http://172.16.7.36:3000/movies/${widget.movie['movie_id']}/comments'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({'text': text, 'user': 'someone'}),
       );
@@ -84,7 +89,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Future<void> fetchMovieDetails() async {
     try {
       final response = await http.get(Uri.parse(
-          'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}'));
+          'http://172.16.7.36:3000/movies/${widget.movie['movie_id']}'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         setState(() {
@@ -99,46 +104,84 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     }
   }
 
+  Future<void> updateMovie() async {
+    // Implement your logic to send a PUT request to update the movie
+    // For example, you can use http package to send a PUT request
+    try {
+      final response = await http.put(
+        Uri.parse(
+          'http://192.168.1.41:3000/movies/${widget.movie['movie_id']}',
+        ),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            'description': inputDescriptionController.text,
+            'title': inputTitleController.text,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Successfully updated the movie, fetch updated data
+        fetchMovieDetails();
+      } else {
+        print('Failed to update movie. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error updating movie: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.movie);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movie Details'),
+        title: const Text('Movie Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.movie['title'],
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            Text(widget.movie['description']),
-            // Display other movie details as needed
-
+            TextFormField(
+              controller: inputTitleController,
+              enabled: editMode, // Enable/disable based on edit mode
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+              ),
+            ),
+            TextFormField(
+              controller: inputDescriptionController,
+              enabled: editMode, // Enable/disable based on edit mode
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+              ),
+            ),
             SizedBox(height: 16),
-
             ElevatedButton(
               onPressed: likeMovie,
               child: Text('Like'),
             ),
-
             ElevatedButton(
               onPressed: () {
+                // Toggle edit mode
+                if (editMode) {
+                  updateMovie();
+                }
+                setState(() {
+                  editMode = !editMode;
+                });
               },
-              child: Text('Edit'),
+              child: Text(editMode ? 'Save' : 'Edit'),
             ),
-
             ElevatedButton(
               onPressed: () => deleteMovie(),
               child: Text('Delete'),
             ),
-
             SizedBox(height: 16),
             Text('Likes: ${widget.movie['likes']}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-
             Row(
               children: [
                 const Expanded(
@@ -152,7 +195,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 ),
               ],
             ),
-
             Expanded(
               child: ListView.builder(
                 itemCount: widget.movie['comments']?.length ?? 0,
@@ -169,9 +211,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 },
               ),
             ),
-
             SizedBox(height: 16),
-
             TextField(
               controller: inputController,
               decoration: InputDecoration(

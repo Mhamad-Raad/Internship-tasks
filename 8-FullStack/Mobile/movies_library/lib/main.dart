@@ -33,7 +33,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
   Future<void> fetchMovies() async {
     print('works');
     final response =
-        await http.get(Uri.parse('http://192.168.1.41:3000/movies'));
+        await http.get(Uri.parse('http://172.16.7.36:3000/movies'));
     print('here: $response');
 
     if (response.statusCode == 200) {
