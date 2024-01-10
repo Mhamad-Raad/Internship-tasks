@@ -286,7 +286,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   ),
                   SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: () => deleteMovie(),
+                    onPressed: () {
+                      deleteMovie();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MovieListScreen()));
+                    },
                     child: Text('Delete'),
                   ),
                 ],
