@@ -1,4 +1,3 @@
-// Main page logic
 document.addEventListener('DOMContentLoaded', fetchMovies);
 
 async function fetchMovies() {

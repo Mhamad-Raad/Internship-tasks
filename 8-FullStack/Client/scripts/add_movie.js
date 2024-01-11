@@ -1,6 +1,5 @@
 let castCounter = 1;
 
-// Function to add a new set of cast inputs
 function addCastInput() {
   if (castCounter < 3) {
     castCounter++;
@@ -34,7 +33,6 @@ async function addMovie() {
   const genre = document.getElementById('genre').value;
   const director = document.getElementById('director').value;
 
-  // Collect cast data
   const castData = [];
   for (let i = 1; i <= castCounter; i++) {
     const name = document.getElementById(`castName${i}`).value;
@@ -59,7 +57,6 @@ async function addMovie() {
   });
 
   if (response.ok) {
-    // Successfully added movie, fetch and display updated movie list
     window.location.href = 'index.html';
     history.pushState(null, null, url.href);
     window.location.reload();

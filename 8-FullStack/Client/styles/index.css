@@ -37,16 +37,12 @@ h1 {
   color: #777;
 }
 
-/* styles.css */
-
-/* ... (existing styles) */
-
 #add-movie-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #007bff; /* Button color */
-  color: #fff; /* Text color */
+  background-color: #007bff; 
+  color: #fff;
   border: none;
   padding: 15px;
   border-radius: 50%;
@@ -57,6 +53,6 @@ h1 {
 }
 
 #add-movie-button:hover {
-  background-color: #0056b3; /* Change color on hover */
+  background-color: #0056b3;
   transform: scale(1.1);
 }
