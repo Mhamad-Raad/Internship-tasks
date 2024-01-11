@@ -1,5 +1,3 @@
-// moviesRouter.js
-
 const express = require('express');
 const MoviesController = require('../Controllers/Movies.Controller');
 
@@ -39,7 +37,6 @@ router.post('/:id/comments', async (req, res) => {
   await moviesController.addCommentToMovie(req, res);
 });
 
-// Additional route for getting movie cast
 router.get('/:id/cast', async (req, res) => {
   await moviesController.getMovieCast(req, res);
 });

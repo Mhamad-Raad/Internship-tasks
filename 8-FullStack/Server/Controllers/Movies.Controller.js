@@ -1,5 +1,3 @@
-// moviesController.js
-
 const MoviesService = require('../Services/MoviesService');
 
 const moviesService = new MoviesService();
@@ -33,7 +31,7 @@ class MoviesController {
 
   async updateMovie(req, res) {
     const movieId = parseInt(req.params.id);
-    const updatedMovieData = req.body; // Assuming request body contains updated movie details
+    const updatedMovieData = req.body;
     console.log('here')
     try {
       const updatedMovie = await moviesService.updateMovie(
@@ -122,7 +120,6 @@ class MoviesController {
     }
   }
 
-  // Additional method to get movie cast
   async getMovieCast(req, res) {
     const movieId = parseInt(req.params.id);
 
@@ -138,11 +135,10 @@ class MoviesController {
   deleteMovie(req, res) {
     const movieId = parseInt(req.params.id);
 
-    // Call the deleteMovie method from your Movies module (assuming you have this method)
     const result = moviesService.deleteMovie(movieId);
 
     if (result) {
-      res.status(204).end(); // 204 No Content for successful deletion
+      res.status(204).end();
     } else {
       res.status(404).send('Movie not found');
     }

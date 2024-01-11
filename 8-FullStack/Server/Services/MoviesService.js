@@ -43,7 +43,6 @@ class MoviesService {
     return movies.addCommentToMovie(id, user, text);
   }
 
-  // Additional method to get movie cast
   async getMovieCast(id) {
     return movies.getMovieCast(id);
   }
