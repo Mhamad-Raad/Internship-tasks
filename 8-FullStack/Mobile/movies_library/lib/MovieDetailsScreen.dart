@@ -65,7 +65,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       );
 
       if (response.statusCode == 200) {
-        // Successfully liked the movie, update UI or fetch updated data
         fetchMovieDetails();
       } else {
         print('Failed to like the movie. Status code: ${response.statusCode}');
@@ -106,7 +105,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       print('Response body: ${response.body}');
 
       if (response.statusCode == 201) {
-        // Successfully added the comment, update UI or fetch updated data
         fetchMovieDetails();
         inputController.clear();
       } else {
@@ -118,8 +116,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   }
 
   Future<void> updateMovie() async {
-    // Implement your logic to send a PUT request to update the movie
-    // For example, you can use http package to send a PUT request
     print('works here');
     try {
       final response = await http.put(
@@ -139,7 +135,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       print(response.body);
 
       if (response.statusCode == 200) {
-        // Successfully updated the movie, fetch updated data
         fetchMovieDetails();
       } else {
         print('Failed to update movie. Status code: ${response.statusCode}');
@@ -188,14 +183,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             children: [
               TextFormField(
                 controller: inputTitleController,
-                enabled: editMode, // Enable/disable based on edit mode
+                enabled: editMode,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
               TextFormField(
                 controller: inputDescriptionController,
-                enabled: editMode, // Enable/disable based on edit mode
+                enabled: editMode,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
@@ -213,7 +208,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     height: 60,
                     child: TextFormField(
                       controller: inputYearController,
-                      enabled: editMode, // Enable/disable based on edit mode
+                      enabled: editMode,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
@@ -234,7 +229,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     height: 60,
                     child: TextFormField(
                       controller: inputGenreController,
-                      enabled: editMode, // Enable/disable based on edit mode
+                      enabled: editMode,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
@@ -255,7 +250,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     height: 75,
                     child: TextFormField(
                       controller: inputDirectorController,
-                      enabled: editMode, // Enable/disable based on edit mode
+                      enabled: editMode,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
@@ -323,7 +318,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           json.decode(movie['comments'][index])['user'] ?? ''),
                       subtitle: Text(
                           json.decode(movie['comments'][index])['text'] ?? ''),
-                      // Display other comment details as needed
                     );
                   },
                 ),

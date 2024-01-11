@@ -71,7 +71,6 @@ class _MovieListScreenState extends State<MovieListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to AddMovieScreen when the FloatingActionButton is pressed
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -96,7 +95,6 @@ class MovieCard extends StatelessWidget {
       child: ListTile(
         title: Text(
           movie['title'],
-          // style the text blakc and big
           style: const TextStyle(
             color: Colors.black,
             fontSize: 24,

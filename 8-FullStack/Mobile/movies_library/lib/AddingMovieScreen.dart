@@ -35,7 +35,7 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
 
       final response = await http.post(
         Uri.parse(
-            'http://192.168.1.41:3000/movies/'), // Replace with your backend API endpoint
+            'http://192.168.1.41:3000/movies/'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           'title': titleController.text,
@@ -46,11 +46,8 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
           'cast': castingMembersData,
         }),
       );
-// (title, description, release_year, genre, director)
       if (response.statusCode == 201) {
-        // Successfully added the movie, you can handle success accordingly
         print('Movie added successfully!');
-        // Optionally, you can navigate back to the movie list or perform other actions
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const MovieListScreen()));
         // clean the textfields
@@ -63,12 +60,10 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
       } else {
         // Handle error cases
         print('Failed to add movie. Status code: ${response.statusCode}');
-        // Optionally, you can display an error message to the user
       }
     } catch (error) {
       // Handle network or other errors
       print('Error submitting form: $error');
-      // Optionally, you can display an error message to the user
     }
   }
 
@@ -148,8 +143,6 @@ class CastingMemberForm extends StatefulWidget {
     final String country = countryController.text.trim();
 
     if (name.isEmpty || ageText.isEmpty || country.isEmpty) {
-      // Handle the case where any of the fields is empty
-      // You might want to show an error or return null
       return {};
     }
 
