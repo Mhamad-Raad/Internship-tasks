@@ -1,0 +1,11 @@
+The database block in system design refers to the part of the 
+overall system architecture that deals specifically with how data is stored,
+managed, and accessed within the system.
+
+the database can be divided to different bases:
+1- cold storgae: which is designed for data that is ment to be there for a long temr retention of other data that is accessed frequently.
+2- replica: which is basically like a backup database that contains everything the other database have.
+3-sharding: which basically breaks down a database if it is a large database to a smaller mroe managable pieces.
+ Each shard is essentially a subset of the entire dataset and is
+stored on a separate database server or node. Sharding is primarily employed to improve performance, 
+scalability, and parallelism in systems dealing with massive amounts of data.
